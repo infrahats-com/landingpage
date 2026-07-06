@@ -91,9 +91,18 @@ export const services = {
 };
 
 export const providers = {
-  eyebrow: 'Providers',
-  title: 'Wherever your workloads live',
-  items: ['AWS', 'Google Cloud', 'Azure', 'Alibaba Cloud', 'DigitalOcean', 'On-Premise'],
+  eyebrow: 'Platforms & Providers',
+  title: 'Wherever your workloads run',
+  items: [
+    'AWS',
+    'Google Cloud',
+    'Azure',
+    'Alibaba Cloud',
+    'DigitalOcean',
+    'On-Premise',
+    'Kubernetes',
+    'Terraform',
+  ],
 };
 
 export const steps = {
