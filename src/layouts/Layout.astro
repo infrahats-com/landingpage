@@ -129,6 +129,39 @@ const schema = {
       });
     </script>
     <script>
+      // Gentle scroll-end snap: when free scrolling stops near a section
+      // boundary, ease it into alignment. Runs only after scrolling settles,
+      // so it never fights anchor navigation (which lands exactly aligned).
+      const reduceSnap = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduceSnap) {
+        const ALIGN = 80; // matches scroll-padding-top (5rem)
+        const THRESHOLD = 150;
+        let snapTimer: ReturnType<typeof setTimeout> | undefined;
+        let snapping = false;
+
+        window.addEventListener(
+          'scroll',
+          () => {
+            if (snapping) return;
+            clearTimeout(snapTimer);
+            snapTimer = setTimeout(() => {
+              for (const sec of document.querySelectorAll('main .section')) {
+                const delta = sec.getBoundingClientRect().top - ALIGN;
+                if (Math.abs(delta) > 4 && Math.abs(delta) < THRESHOLD) {
+                  snapping = true;
+                  window.scrollBy({ top: delta, behavior: 'smooth' });
+                  setTimeout(() => {
+                    snapping = false;
+                  }, 700);
+                  break;
+                }
+              }
+            }, 220);
+          },
+          { passive: true }
+        );
+      }
+
       // scroll reveal
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const targets = document.querySelectorAll('.reveal');
