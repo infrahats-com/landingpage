@@ -59,7 +59,16 @@ const schema = {
   <body>
     <InfraBackground />
     <slot />
-    <div class="cursor-ring" aria-hidden="true"></div>
+    <div class="cursor-ring" aria-hidden="true">
+      <svg viewBox="0 0 40 40">
+        <polygon
+          points="20,3.5 34.3,11.75 34.3,28.25 20,36.5 5.7,28.25 5.7,11.75"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"></polygon>
+      </svg>
+    </div>
     <div class="cursor-dot" aria-hidden="true"></div>
     <script>
       // custom cursor + card spotlight
@@ -89,6 +98,12 @@ const schema = {
         );
         document.addEventListener('pointerleave', () => {
           document.body.classList.remove('cursor-on');
+        });
+        document.addEventListener('pointerdown', () => {
+          document.body.classList.add('cursor-press');
+        });
+        document.addEventListener('pointerup', () => {
+          document.body.classList.remove('cursor-press');
         });
 
         (function follow() {
