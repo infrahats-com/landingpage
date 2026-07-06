@@ -1,8 +1,8 @@
 // All page copy, links, and pricing in one place.
-// Placeholders to swap before launch: calendly, email, linkedin, github, prices.
+// Placeholders to swap before launch: email, linkedin, github, prices.
 
 export const links = {
-  calendly: 'https://calendly.com/infrahats/30min',
+  calendly: 'https://calendly.com/d/dvzc-n6w-by6/meet-infrahats',
   email: 'hello@infrahats.com',
   linkedin: 'https://www.linkedin.com/company/infrahats',
   github: 'https://github.com/infrahats-com',
