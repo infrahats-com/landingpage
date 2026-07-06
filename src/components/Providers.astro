@@ -19,8 +19,8 @@ const items = providers.items;
     <h2 class="section-title">{providers.title}</h2>
   </div>
 
-  <div class="marquee reveal" style="--reveal-delay: 0.1s" aria-label="Supported providers">
-    <div class="marquee-track">
+  <div class="marquee reveal" style="--reveal-delay: 0.1s" aria-label="Supported providers" id="prov-marquee">
+    <div class="marquee-track" id="prov-track">
       {
         [0, 1].map((dup) => (
           <div class="marquee-group" aria-hidden={dup === 1 ? 'true' : undefined}>
@@ -60,21 +60,26 @@ const items = providers.items;
     mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   }
 
+  .marquee {
+    touch-action: pan-y;
+    cursor: grab;
+  }
+
+  .marquee.dragging {
+    cursor: grabbing;
+  }
+
   .marquee-track {
     display: flex;
     width: max-content;
-    animation: marquee 36s linear infinite;
-  }
-
-  .marquee:hover .marquee-track {
-    animation-play-state: paused;
+    will-change: transform;
   }
 
   .marquee-group {
     display: flex;
     align-items: center;
-    gap: clamp(2.5rem, 6vw, 5rem);
-    padding-right: clamp(2.5rem, 6vw, 5rem);
+    gap: 1rem;
+    padding-right: 1rem;
   }
 
   .provider {
@@ -83,29 +88,29 @@ const items = providers.items;
     gap: 0.7rem;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.15rem;
-    color: var(--text-faint);
+    font-size: 1.05rem;
+    color: var(--text-dim);
     white-space: nowrap;
-    transition: color 0.3s;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(16, 22, 29, 0.55);
+    transition: color 0.3s, border-color 0.3s;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .provider:hover {
     color: var(--cream);
+    border-color: rgba(127, 179, 184, 0.45);
   }
 
   .provider svg {
     color: var(--teal);
   }
 
-  @keyframes marquee {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .marquee-track {
-      animation: none;
       flex-wrap: wrap;
       width: auto;
       justify-content: center;
@@ -121,3 +126,71 @@ const items = providers.items;
     }
   }
 </style>
+
+<script>
+  // Auto-scrolling marquee that also responds to wheel / trackpad / drag.
+  const marquee = document.getElementById('prov-marquee');
+  const track = document.getElementById('prov-track');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (marquee && track && !reduceMotion) {
+    let offset = 0;
+    let velocity = 0;
+    const AUTO_SPEED = 0.035; // px per ms
+    let dragging = false;
+    let lastX = 0;
+    let lastTime = performance.now();
+
+    function halfWidth() {
+      return track!.scrollWidth / 2;
+    }
+
+    marquee.addEventListener(
+      'wheel',
+      (e) => {
+        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        velocity += delta * 0.02;
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+
+    marquee.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      lastX = e.clientX;
+      marquee!.classList.add('dragging');
+      marquee!.setPointerCapture(e.pointerId);
+    });
+    marquee.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      offset -= e.clientX - lastX;
+      lastX = e.clientX;
+    });
+    const endDrag = () => {
+      dragging = false;
+      marquee!.classList.remove('dragging');
+    };
+    marquee.addEventListener('pointerup', endDrag);
+    marquee.addEventListener('pointercancel', endDrag);
+
+    function tick(now: number) {
+      const dt = Math.min(now - lastTime, 48);
+      lastTime = now;
+
+      if (!dragging) {
+        offset += AUTO_SPEED * dt + velocity;
+        velocity *= 0.92; // friction
+        if (Math.abs(velocity) < 0.01) velocity = 0;
+      }
+
+      const w = halfWidth();
+      if (w > 0) {
+        const wrapped = ((offset % w) + w) % w;
+        track!.style.transform = `translateX(${-wrapped}px)`;
+      }
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+</script>

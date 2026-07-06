@@ -46,6 +46,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  scroll-snap-type: y proximity;
 }
 
 body {
@@ -102,6 +103,117 @@ svg {
 .section {
   padding-block: var(--section-pad);
   position: relative;
+  scroll-snap-align: start;
+  scroll-margin-top: 4.25rem;
+}
+
+/* premium card system ---------------------------------------------------- */
+
+.card {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background:
+    linear-gradient(180deg, rgba(23, 32, 41, 0.72), rgba(16, 23, 30, 0.92)) padding-box,
+    linear-gradient(
+        155deg,
+        rgba(156, 178, 146, 0.38),
+        rgba(43, 59, 74, 0.35) 38%,
+        rgba(29, 40, 51, 0.5) 62%,
+        rgba(127, 179, 184, 0.3)
+      )
+      border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(156, 178, 146, 0.09),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* film grain -------------------------------------------------------------- */
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* custom cursor ------------------------------------------------------------ */
+
+@media (hover: hover) and (pointer: fine) {
+  body,
+  body a,
+  body button {
+    cursor: none;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--cream);
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid rgba(156, 178, 146, 0.65);
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 0.25s, transform 0.25s var(--ease-out), border-color 0.25s;
+  }
+
+  body.cursor-on .cursor-dot,
+  body.cursor-on .cursor-ring {
+    opacity: 1;
+  }
+
+  body.cursor-hover .cursor-ring {
+    transform: translate(-50%, -50%) scale(1.55);
+    border-color: var(--teal-bright);
+  }
+
+  body.cursor-hover .cursor-dot {
+    background: var(--teal-bright);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
 }
 
 .eyebrow {
@@ -206,6 +318,18 @@ svg {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+
+  body,
+  body a,
+  body button {
+    cursor: auto;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
   }
 
   .reveal {

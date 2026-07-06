@@ -82,10 +82,12 @@ import { hero, links } from '../data/content';
   .terminal {
     width: min(34rem, 100%);
     border-radius: var(--radius);
-    border: 1px solid var(--border-bright);
-    background: rgba(13, 18, 24, 0.85);
+    border: 1px solid transparent;
+    background:
+      linear-gradient(180deg, rgba(15, 21, 27, 0.9), rgba(11, 15, 20, 0.95)) padding-box,
+      linear-gradient(155deg, rgba(156, 178, 146, 0.4), rgba(43, 59, 74, 0.5) 45%, rgba(127, 179, 184, 0.35)) border-box;
     backdrop-filter: blur(6px);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 50px rgba(97, 135, 138, 0.06);
     text-align: left;
     overflow: hidden;
   }

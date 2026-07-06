@@ -22,9 +22,11 @@ import { finalCta, links } from '../data/content';
     position: relative;
     text-align: center;
     background:
-      radial-gradient(ellipse 70% 90% at 50% -20%, rgba(97, 135, 138, 0.18), transparent 60%),
-      var(--bg-card);
-    border: 1px solid var(--border-bright);
+      radial-gradient(ellipse 70% 90% at 50% -20%, rgba(97, 135, 138, 0.18), transparent 60%) padding-box,
+      linear-gradient(180deg, var(--bg-card), var(--bg-card)) padding-box,
+      linear-gradient(155deg, rgba(156, 178, 146, 0.45), rgba(43, 59, 74, 0.4) 50%, rgba(127, 179, 184, 0.4)) border-box;
+    border: 1px solid transparent;
+    background-clip: padding-box, border-box;
     border-radius: var(--radius-lg);
     padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
     overflow: hidden;

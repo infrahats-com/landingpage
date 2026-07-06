@@ -50,8 +50,11 @@ import { steps } from '../data/content';
     font-family: var(--font-display);
     font-weight: 700;
     color: var(--sage);
-    background: rgba(156, 178, 146, 0.1);
-    border: 1px solid rgba(156, 178, 146, 0.35);
+    background:
+      radial-gradient(circle at 30% 25%, rgba(156, 178, 146, 0.22), rgba(156, 178, 146, 0.06)) padding-box,
+      linear-gradient(155deg, rgba(156, 178, 146, 0.6), rgba(97, 135, 138, 0.35)) border-box;
+    border: 1px solid transparent;
+    box-shadow: 0 0 18px rgba(156, 178, 146, 0.12);
   }
 
   .step-line {

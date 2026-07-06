@@ -23,7 +23,7 @@ const icons: Record<string, string> = {
   <div class="services-grid">
     {
       services.items.map((item, i) => (
-        <article class="service-card reveal" style={`--reveal-delay: ${(i % 4) * 0.08}s`}>
+        <article class="card service-card reveal" style={`--reveal-delay: ${(i % 4) * 0.08}s`}>
           <div class="service-icon" aria-hidden="true">
             <svg
               viewBox="0 0 24 24"
@@ -54,17 +54,13 @@ const icons: Record<string, string> = {
   }
 
   .service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
     padding: 1.5rem;
-    transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
   }
 
   .service-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(156, 178, 146, 0.45);
-    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(156, 178, 146, 0.12);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
   }
 
   .service-icon {
