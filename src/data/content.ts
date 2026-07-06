@@ -161,7 +161,7 @@ export const pricing = {
       popular: true,
       features: [
         'Up to 50 hrs / month',
-        'Full IaC ownership (Terraform)',
+        'Full IaC ownership',
         'Kubernetes & GitOps management',
         'CI/CD setup & maintenance',
         'Observability & SLOs',
