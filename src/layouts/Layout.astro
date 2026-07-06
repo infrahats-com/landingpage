@@ -1,6 +1,32 @@
 ---
 import '@fontsource-variable/outfit';
 import '../styles/global.css';
+import InfraBackground from '../components/InfraBackground.astro';
+
+const title = 'infrahats — Production-Grade Infrastructure, Without the Full-Time Hire';
+const description =
+  'DevOps, SRE, and Solutions Architecture on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure for startups and enterprises — AWS, GCP, Azure, Kubernetes, AI infrastructure, and more.';
+const url = 'https://infrahats.com/';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'infrahats',
+  url,
+  email: 'hello@infrahats.com',
+  description,
+  knowsAbout: [
+    'DevOps',
+    'Site Reliability Engineering',
+    'Kubernetes',
+    'Terraform',
+    'AWS',
+    'GCP',
+    'Azure',
+    'AI Infrastructure',
+    'Platform Engineering',
+  ],
+};
 ---
 
 <!doctype html>
@@ -8,10 +34,30 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>infrahats — Production-Grade Infrastructure, Without the Full-Time Hire</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="DevOps retainer, SRE consulting, cloud infrastructure, Kubernetes consulting, platform engineering, AI infrastructure, workload migration, fractional DevOps"
+    />
+    <link rel="canonical" href={url} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${url}og-image.png`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
   <body>
+    <InfraBackground />
     <slot />
   </body>
 </html>

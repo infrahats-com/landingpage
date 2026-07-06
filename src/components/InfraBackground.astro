@@ -1,0 +1,293 @@
+<div class="bg-gradient" aria-hidden="true"></div>
+<canvas id="infra-bg" aria-hidden="true"></canvas>
+
+<style>
+  .bg-gradient {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(97, 135, 138, 0.14), transparent 70%),
+      radial-gradient(ellipse 60% 40% at 85% 110%, rgba(156, 178, 146, 0.07), transparent 70%),
+      var(--bg);
+  }
+
+  #infra-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #infra-bg {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('infra-bg') as HTMLCanvasElement | null;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canvas && !reduceMotion) {
+    const ctx = canvas.getContext('2d')!;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    // palette
+    const SAGE = [156, 178, 146] as const;
+    const TEAL = [127, 179, 184] as const;
+    const CREAM = [221, 220, 217] as const;
+
+    const LINK_DIST = 160;
+    const CURSOR_DIST = 200;
+    const SPEED = 0.018;
+
+    interface Node {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      r: number;
+      hue: typeof SAGE | typeof TEAL;
+      phase: number;
+    }
+
+    interface Packet {
+      from: Node;
+      to: { x: number; y: number };
+      t: number;
+      speed: number;
+      color: typeof SAGE | typeof TEAL | typeof CREAM;
+      viaCursor: boolean;
+    }
+
+    let width = 0;
+    let height = 0;
+    let nodes: Node[] = [];
+    let packets: Packet[] = [];
+
+    const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
+
+    window.addEventListener(
+      'pointermove',
+      (e) => {
+        mouse.tx = e.clientX;
+        mouse.ty = e.clientY;
+        if (!mouse.active) {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        }
+        mouse.active = true;
+      },
+      { passive: true }
+    );
+    document.addEventListener('pointerleave', () => {
+      mouse.active = false;
+    });
+
+    function rgba(c: readonly number[], a: number) {
+      return `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${a})`;
+    }
+
+    function nodeCount() {
+      return Math.min(80, Math.max(26, Math.round((width * height) / 22000)));
+    }
+
+    function makeNode(): Node {
+      return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * SPEED,
+        vy: (Math.random() - 0.5) * SPEED,
+        r: 1.2 + Math.random() * 1.6,
+        hue: Math.random() < 0.55 ? SAGE : TEAL,
+        phase: Math.random() * Math.PI * 2,
+      };
+    }
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas!.width = width * dpr;
+      canvas!.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const target = nodeCount();
+      while (nodes.length < target) nodes.push(makeNode());
+      nodes.length = target;
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    let running = true;
+    let lastTime = performance.now();
+
+    document.addEventListener('visibilitychange', () => {
+      running = document.visibilityState === 'visible';
+      if (running) {
+        lastTime = performance.now();
+        requestAnimationFrame(frame);
+      }
+    });
+
+    function spawnPacket(now: number) {
+      // ambient traffic between linked nodes
+      if (packets.length > 26) return;
+      const a = nodes[Math.floor(Math.random() * nodes.length)];
+      let best: Node | null = null;
+      let bestD = LINK_DIST;
+      for (const b of nodes) {
+        if (b === a) continue;
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < bestD) {
+          bestD = d;
+          best = b;
+        }
+      }
+      if (best) {
+        packets.push({
+          from: a,
+          to: best,
+          t: 0,
+          speed: 0.0012 + Math.random() * 0.0015,
+          color: Math.random() < 0.5 ? SAGE : TEAL,
+          viaCursor: false,
+        });
+      }
+    }
+
+    function frame(now: number) {
+      if (!running) return;
+      const dt = Math.min(now - lastTime, 48);
+      lastTime = now;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // ease cursor
+      mouse.x += (mouse.tx - mouse.x) * 0.12;
+      mouse.y += (mouse.ty - mouse.y) * 0.12;
+
+      // dotted grid (very faint, drawn sparsely)
+      const grid = 56;
+      ctx.fillStyle = 'rgba(221, 220, 217, 0.030)';
+      for (let gx = grid / 2; gx < width; gx += grid) {
+        for (let gy = grid / 2; gy < height; gy += grid) {
+          ctx.fillRect(gx, gy, 1, 1);
+        }
+      }
+
+      // move nodes
+      for (const n of nodes) {
+        n.x += n.vx * dt;
+        n.y += n.vy * dt;
+        if (n.x < -20) n.x = width + 20;
+        if (n.x > width + 20) n.x = -20;
+        if (n.y < -20) n.y = height + 20;
+        if (n.y > height + 20) n.y = -20;
+      }
+
+      // links between nodes
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const d2 = dx * dx + dy * dy;
+          if (d2 < LINK_DIST * LINK_DIST) {
+            const d = Math.sqrt(d2);
+            const alpha = (1 - d / LINK_DIST) * 0.14;
+            ctx.strokeStyle = rgba(TEAL, alpha);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // cursor as load balancer
+      if (mouse.active) {
+        let connected = 0;
+        for (const n of nodes) {
+          const d = Math.hypot(n.x - mouse.x, n.y - mouse.y);
+          if (d < CURSOR_DIST) {
+            const closeness = 1 - d / CURSOR_DIST;
+            ctx.strokeStyle = rgba(SAGE, closeness * 0.35);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(n.x, n.y);
+            ctx.lineTo(mouse.x, mouse.y);
+            ctx.stroke();
+            connected++;
+
+            // occasionally route a packet through the cursor
+            if (Math.random() < 0.004 && packets.length < 40) {
+              packets.push({
+                from: n,
+                to: { x: mouse.x, y: mouse.y },
+                t: 0,
+                speed: 0.002 + Math.random() * 0.002,
+                color: CREAM,
+                viaCursor: true,
+              });
+            }
+          }
+        }
+
+        // cursor glow, brighter with more connections
+        const glowR = 90 + Math.min(connected, 10) * 6;
+        const glow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, glowR);
+        glow.addColorStop(0, rgba(SAGE, 0.10 + Math.min(connected, 10) * 0.008));
+        glow.addColorStop(1, 'rgba(156, 178, 146, 0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, glowR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // small core
+        ctx.fillStyle = rgba(CREAM, 0.5);
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // packets
+      if (Math.random() < 0.06) spawnPacket(now);
+      packets = packets.filter((p) => p.t < 1);
+      for (const p of packets) {
+        p.t += p.speed * dt;
+        const tx = p.viaCursor ? mouse.x : (p.to as Node).x;
+        const ty = p.viaCursor ? mouse.y : (p.to as Node).y;
+        const x = p.from.x + (tx - p.from.x) * p.t;
+        const y = p.from.y + (ty - p.from.y) * p.t;
+        const fade = Math.sin(p.t * Math.PI);
+        ctx.fillStyle = rgba(p.color, 0.9 * fade);
+        ctx.beginPath();
+        ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+        // trailing glow
+        ctx.fillStyle = rgba(p.color, 0.18 * fade);
+        ctx.beginPath();
+        ctx.arc(x, y, 4.5, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // nodes on top
+      for (const n of nodes) {
+        const pulse = 0.6 + 0.4 * Math.sin(now * 0.0012 + n.phase);
+        ctx.fillStyle = rgba(n.hue, 0.55 * pulse);
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(frame);
+    }
+
+    requestAnimationFrame(frame);
+  }
+</script>
