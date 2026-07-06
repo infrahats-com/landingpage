@@ -139,7 +139,7 @@ export const pricing = {
   tiers: [
     {
       name: 'Starter',
-      price: '$2,200',
+      price: '$1,500',
       period: '/ month',
       blurb: 'A reliable senior infrastructure hand, part-time.',
       popular: false,
@@ -155,7 +155,7 @@ export const pricing = {
     },
     {
       name: 'Growth',
-      price: '$3,600',
+      price: '$3,000',
       period: '/ month',
       blurb: 'Full infrastructure ownership for scaling teams.',
       popular: true,
