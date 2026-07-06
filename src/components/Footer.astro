@@ -1,12 +1,13 @@
 ---
 import { footer, links } from '../data/content';
+import Logo from './Logo.astro';
 ---
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img src="/logo.svg" alt="infrahats" width="140" height="23" loading="lazy" />
+        <Logo />
         <p>{footer.blurb}</p>
         <a class="footer-email" href={`mailto:${links.email}`}>{links.email}</a>
       </div>
@@ -53,9 +54,10 @@ import { footer, links } from '../data/content';
     margin-bottom: 3rem;
   }
 
-  .footer-brand img {
+  .footer-brand :global(svg) {
     height: 1.35rem;
     width: auto;
+    display: block;
     margin-bottom: 1rem;
   }
 
