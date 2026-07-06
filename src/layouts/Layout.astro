@@ -134,8 +134,10 @@ const schema = {
       // so it never fights anchor navigation (which lands exactly aligned).
       const reduceSnap = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (!reduceSnap) {
-        const ALIGN = 80; // matches scroll-padding-top (5rem)
-        const THRESHOLD = 150;
+        // Content-top alignment: scroll-padding (5rem) + scroll-margin
+        // (4.5rem - section padding) puts content ~152px from viewport top.
+        const CONTENT_ALIGN = 152;
+        const THRESHOLD = 170;
         let snapTimer: ReturnType<typeof setTimeout> | undefined;
         let snapping = false;
 
@@ -146,7 +148,8 @@ const schema = {
             clearTimeout(snapTimer);
             snapTimer = setTimeout(() => {
               for (const sec of document.querySelectorAll('main .section')) {
-                const delta = sec.getBoundingClientRect().top - ALIGN;
+                const padTop = parseFloat(getComputedStyle(sec).paddingTop) || 0;
+                const delta = sec.getBoundingClientRect().top - (CONTENT_ALIGN - padTop);
                 if (Math.abs(delta) > 4 && Math.abs(delta) < THRESHOLD) {
                   snapping = true;
                   window.scrollBy({ top: delta, behavior: 'smooth' });

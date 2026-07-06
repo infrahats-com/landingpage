@@ -102,6 +102,9 @@ svg {
 .section {
   padding-block: var(--section-pad);
   position: relative;
+  /* anchors + snap align the section's CONTENT near the nav, not the
+     padded box top — cancels the internal top padding */
+  scroll-margin-top: calc(4.5rem - var(--section-pad));
 }
 
 /* premium card system ---------------------------------------------------- */
