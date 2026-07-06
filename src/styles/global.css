@@ -1,0 +1,224 @@
+/* ---------------------------------------------------------------------------
+   infrahats — global tokens & base
+   Palette derived from the logo: cream #DDDCD9, sage #9CB292, teal #61878A
+--------------------------------------------------------------------------- */
+
+:root {
+  /* color */
+  --bg: #0a0e12;
+  --bg-raise: #10161d;
+  --bg-card: #121a22;
+  --border: #1d2833;
+  --border-bright: #2b3b4a;
+  --cream: #dddcd9;
+  --sage: #9cb292;
+  --teal: #61878a;
+  --teal-bright: #7fb3b8;
+  --text: #c4c9cd;
+  --text-dim: #8a949d;
+  --text-faint: #5c6770;
+
+  /* gradients */
+  --grad-accent: linear-gradient(92deg, var(--sage), var(--teal-bright));
+
+  /* type */
+  --font-display: 'Outfit Variable', 'Avenir Next Rounded', ui-rounded, system-ui, sans-serif;
+  --font-body: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'Cascadia Code', Menlo, monospace;
+
+  /* rhythm */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --section-pad: clamp(4.5rem, 10vw, 8rem);
+  --content-width: 72rem;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--cream);
+  line-height: 1.15;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--teal);
+  color: var(--bg);
+}
+
+/* shared helpers -------------------------------------------------------- */
+
+.container {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding-block: var(--section-pad);
+  position: relative;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 1.5rem;
+  height: 1px;
+  background: var(--sage);
+  opacity: 0.6;
+}
+
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.section-lead {
+  color: var(--text-dim);
+  max-width: 38rem;
+  font-size: 1.05rem;
+}
+
+.grad-text {
+  background: var(--grad-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* buttons ---------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out),
+    background-color 0.25s, border-color 0.25s, color 0.25s;
+}
+
+.btn-primary {
+  background: var(--sage);
+  color: #0c1310;
+}
+
+.btn-primary:hover {
+  background: #b0c4a6;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(156, 178, 146, 0.25);
+}
+
+.btn-ghost {
+  border-color: var(--border-bright);
+  color: var(--cream);
+  background: rgba(16, 22, 29, 0.6);
+}
+
+.btn-ghost:hover {
+  border-color: var(--teal-bright);
+  color: var(--teal-bright);
+  transform: translateY(-2px);
+}
+
+:focus-visible {
+  outline: 2px solid var(--teal-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* scroll reveal ---------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
