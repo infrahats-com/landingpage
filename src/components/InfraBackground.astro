@@ -70,21 +70,16 @@
 
     const mouse = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
 
-    // The background only reacts when the pointer is over empty space —
-    // not when it sits on cards, text, buttons, or other page content.
-    const CONTENT = 'a, button, article, pre, blockquote, p, h1, h2, h3, h4, li, img, svg, span, small, strong, input, .card, nav, footer';
-
     window.addEventListener(
       'pointermove',
       (e) => {
-        const overContent = !!(e.target as Element | null)?.closest?.(CONTENT);
         mouse.tx = e.clientX;
         mouse.ty = e.clientY;
         if (!mouse.active) {
           mouse.x = e.clientX;
           mouse.y = e.clientY;
         }
-        mouse.active = !overContent;
+        mouse.active = true;
       },
       { passive: true }
     );
