@@ -78,8 +78,8 @@ const items = providers.items;
   .marquee-group {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding-right: 1rem;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    padding-right: clamp(2.5rem, 6vw, 5rem);
   }
 
   .provider {
@@ -88,21 +88,16 @@ const items = providers.items;
     gap: 0.7rem;
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--text-dim);
+    font-size: 1.15rem;
+    color: var(--text-faint);
     white-space: nowrap;
-    padding: 0.8rem 1.6rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: rgba(16, 22, 29, 0.55);
-    transition: color 0.3s, border-color 0.3s;
+    transition: color 0.3s;
     user-select: none;
     -webkit-user-select: none;
   }
 
   .provider:hover {
     color: var(--cream);
-    border-color: rgba(127, 179, 184, 0.45);
   }
 
   .provider svg {
@@ -134,6 +129,17 @@ const items = providers.items;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (marquee && track && !reduceMotion) {
+    // Clone the first group until the track comfortably outruns the
+    // viewport twice over, so the loop never visibly runs dry mid-scroll.
+    const firstGroup = track.querySelector('.marquee-group') as HTMLElement;
+    let groupWidth = firstGroup.getBoundingClientRect().width;
+    while (track.scrollWidth < marquee.clientWidth * 2 + groupWidth) {
+      const clone = firstGroup.cloneNode(true) as HTMLElement;
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    }
+    groupWidth = firstGroup.getBoundingClientRect().width;
+
     let offset = 0;
     let velocity = 0;
     const AUTO_SPEED = 0.035; // px per ms
@@ -142,7 +148,7 @@ const items = providers.items;
     let lastTime = performance.now();
 
     function halfWidth() {
-      return track!.scrollWidth / 2;
+      return groupWidth;
     }
 
     marquee.addEventListener(
