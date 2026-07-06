@@ -1,13 +1,32 @@
 ---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { providers } from '../data/content';
 
-const marks: Record<string, string> = {
-  AWS: `<path d="M7 13.5c1.6 1.3 3.9 2 6.2 2 1.6 0 3.4-.3 4.8-1"/><path d="M16.5 14.9c.6-.1 1.9-.2 2.2.2.2.4-.3 1.6-.7 2.2"/><path d="M8.2 6.5c0-1.1.9-1.8 2.1-1.8 1.1 0 2 .6 2 1.7v3.4M8.4 8.3c0 2 3.9.8 3.9 3M14.9 4.9l1.5 5 1.5-5 1.5 5 1.5-5" transform="translate(-4 1.5) scale(0.9)"/>`,
-  'Google Cloud': `<path d="M15.5 9.5a4 4 0 0 0-7.4-1.2A3.5 3.5 0 0 0 6 15h9.5a3 3 0 0 0 .5-5.9"/><path d="M12 12v3M9.5 13.5 12 15l2.5-1.5"/>`,
-  Azure: `<path d="m13 4-6.5 12H10l7-16-4 4ZM14 9l-5.5 11H21L14 9Z" transform="scale(0.85) translate(2 2)"/>`,
-  'Alibaba Cloud': `<path d="M7.5 6.5h-2A2.5 2.5 0 0 0 3 9v6a2.5 2.5 0 0 0 2.5 2.5h2M16.5 6.5h2A2.5 2.5 0 0 1 21 9v6a2.5 2.5 0 0 1-2.5 2.5h-2M8 12h8"/>`,
-  DigitalOcean: `<path d="M12 20v-3.3a4.7 4.7 0 1 0-4.7-4.7H4a8 8 0 1 1 8 8Z"/><path d="M12 20H8.7v-3.3H12ZM8.7 16.7H6v-2.6h2.7Z"/>`,
-  'On-Premise': `<rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h.01M11 17h.01"/>`,
+// Real brand marks from the devicon and simple-icons libraries (MIT licensed),
+// bundled locally at build time — no external runtime requests.
+function loadIcon(path: string) {
+  const raw = readFileSync(resolve(process.cwd(), path), 'utf-8');
+  const viewBox = raw.match(/viewBox="([^"]+)"/)?.[1] ?? '0 0 24 24';
+  const inner = raw
+    .replace(/^[\s\S]*?<svg[^>]*>/, '')
+    .replace(/<\/svg>\s*$/, '')
+    .replace(/fill="#[0-9a-fA-F]{3,8}"/g, 'fill="currentColor"');
+  return { viewBox, inner };
+}
+
+const marks: Record<string, { viewBox: string; inner: string }> = {
+  AWS: loadIcon('node_modules/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg'),
+  'Google Cloud': loadIcon('node_modules/devicon/icons/googlecloud/googlecloud-plain.svg'),
+  Azure: loadIcon('node_modules/devicon/icons/azure/azure-plain.svg'),
+  'Alibaba Cloud': loadIcon('node_modules/simple-icons/icons/alibabacloud.svg'),
+  DigitalOcean: loadIcon('node_modules/devicon/icons/digitalocean/digitalocean-original.svg'),
+  // Not a brand — a plain generic mark, drawn for this project.
+  'On-Premise': {
+    viewBox: '0 0 24 24',
+    inner:
+      '<path fill="currentColor" d="M4 4h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm3.25 3.5a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5ZM4 14h16a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a1 1 0 0 1 1-1Zm3.25 3.5a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5Z"/>',
+  },
 };
 
 const items = providers.items;
@@ -27,16 +46,11 @@ const items = providers.items;
             {items.map((name) => (
               <span class="provider">
                 <svg
-                  viewBox="0 0 24 24"
+                  viewBox={marks[name].viewBox}
                   width="26"
                   height="26"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
                   aria-hidden="true"
-                  set:html={marks[name]}
+                  set:html={marks[name].inner}
                 />
                 {name}
               </span>
@@ -102,6 +116,7 @@ const items = providers.items;
 
   .provider svg {
     color: var(--teal);
+    flex-shrink: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
