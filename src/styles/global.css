@@ -46,7 +46,6 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
-  scroll-snap-type: y proximity;
 }
 
 body {
@@ -103,8 +102,6 @@ svg {
 .section {
   padding-block: var(--section-pad);
   position: relative;
-  scroll-snap-align: start;
-  scroll-margin-top: 4.25rem;
 }
 
 /* premium card system ---------------------------------------------------- */
@@ -318,7 +315,6 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-    scroll-snap-type: none;
   }
 
   body,
