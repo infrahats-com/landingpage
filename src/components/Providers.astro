@@ -1,0 +1,123 @@
+---
+import { providers } from '../data/content';
+
+const marks: Record<string, string> = {
+  AWS: `<path d="M7 13.5c1.6 1.3 3.9 2 6.2 2 1.6 0 3.4-.3 4.8-1"/><path d="M16.5 14.9c.6-.1 1.9-.2 2.2.2.2.4-.3 1.6-.7 2.2"/><path d="M8.2 6.5c0-1.1.9-1.8 2.1-1.8 1.1 0 2 .6 2 1.7v3.4M8.4 8.3c0 2 3.9.8 3.9 3M14.9 4.9l1.5 5 1.5-5 1.5 5 1.5-5" transform="translate(-4 1.5) scale(0.9)"/>`,
+  'Google Cloud': `<path d="M15.5 9.5a4 4 0 0 0-7.4-1.2A3.5 3.5 0 0 0 6 15h9.5a3 3 0 0 0 .5-5.9"/><path d="M12 12v3M9.5 13.5 12 15l2.5-1.5"/>`,
+  Azure: `<path d="m13 4-6.5 12H10l7-16-4 4ZM14 9l-5.5 11H21L14 9Z" transform="scale(0.85) translate(2 2)"/>`,
+  'Alibaba Cloud': `<path d="M7.5 6.5h-2A2.5 2.5 0 0 0 3 9v6a2.5 2.5 0 0 0 2.5 2.5h2M16.5 6.5h2A2.5 2.5 0 0 1 21 9v6a2.5 2.5 0 0 1-2.5 2.5h-2M8 12h8"/>`,
+  DigitalOcean: `<path d="M12 20v-3.3a4.7 4.7 0 1 0-4.7-4.7H4a8 8 0 1 1 8 8Z"/><path d="M12 20H8.7v-3.3H12ZM8.7 16.7H6v-2.6h2.7Z"/>`,
+  'On-Premise': `<rect x="4" y="4" width="16" height="6" rx="1.5"/><rect x="4" y="14" width="16" height="6" rx="1.5"/><path d="M7.5 7h.01M7.5 17h.01M11 7h.01M11 17h.01"/>`,
+};
+
+const items = providers.items;
+---
+
+<section class="section providers" id="providers">
+  <div class="container reveal">
+    <span class="eyebrow">{providers.eyebrow}</span>
+    <h2 class="section-title">{providers.title}</h2>
+  </div>
+
+  <div class="marquee reveal" style="--reveal-delay: 0.1s" aria-label="Supported providers">
+    <div class="marquee-track">
+      {
+        [0, 1].map((dup) => (
+          <div class="marquee-group" aria-hidden={dup === 1 ? 'true' : undefined}>
+            {items.map((name) => (
+              <span class="provider">
+                <svg
+                  viewBox="0 0 24 24"
+                  width="26"
+                  height="26"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={marks[name]}
+                />
+                {name}
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .providers {
+    padding-bottom: 3rem;
+  }
+
+  .marquee {
+    margin-top: 2.5rem;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 36s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-group {
+    display: flex;
+    align-items: center;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    padding-right: clamp(2.5rem, 6vw, 5rem);
+  }
+
+  .provider {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--text-faint);
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+
+  .provider:hover {
+    color: var(--cream);
+  }
+
+  .provider svg {
+    color: var(--teal);
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      justify-content: center;
+    }
+
+    .marquee-group[aria-hidden='true'] {
+      display: none;
+    }
+
+    .marquee {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+  }
+</style>

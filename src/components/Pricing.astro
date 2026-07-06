@@ -1,0 +1,172 @@
+---
+import { pricing, links } from '../data/content';
+---
+
+<section class="section container" id="pricing">
+  <div class="reveal pricing-head">
+    <span class="eyebrow">{pricing.eyebrow}</span>
+    <h2 class="section-title">{pricing.title}</h2>
+    <p class="section-lead">{pricing.lead}</p>
+  </div>
+
+  <div class="tiers">
+    {
+      pricing.tiers.map((tier, i) => (
+        <article class:list={['tier', 'reveal', { popular: tier.popular }]} style={`--reveal-delay: ${i * 0.1}s`}>
+          {tier.popular && <span class="tier-badge">Most popular</span>}
+          <h3>{tier.name}</h3>
+          <p class="tier-blurb">{tier.blurb}</p>
+          <div class="tier-price">
+            <strong>{tier.price}</strong>
+            <span>{tier.period}</span>
+          </div>
+          <ul>
+            {tier.features.map((f) => (
+              <li>
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m4.5 12.5 5 5 10-11" />
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            class:list={['btn', tier.popular ? 'btn-primary' : 'btn-ghost', 'tier-cta']}
+            href={links.calendly}
+            target="_blank"
+            rel="noopener"
+          >
+            {tier.cta}
+          </a>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="pricing-note reveal">{pricing.note}</p>
+</section>
+
+<style>
+  .pricing-head {
+    text-align: center;
+  }
+
+  .pricing-head .section-lead {
+    margin-inline: auto;
+  }
+
+  .tiers {
+    margin-top: 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+  }
+
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    transition: transform 0.3s var(--ease-out), border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .tier:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4);
+  }
+
+  .tier.popular {
+    border-color: rgba(156, 178, 146, 0.5);
+    box-shadow: 0 0 0 1px rgba(156, 178, 146, 0.2), 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .tier-badge {
+    position: absolute;
+    top: -0.8rem;
+    right: 1.5rem;
+    background: var(--sage);
+    color: #0c1310;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+  }
+
+  .tier h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .tier-blurb {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    margin-bottom: 1.4rem;
+    min-height: 2.6em;
+  }
+
+  .tier-price {
+    margin-bottom: 1.4rem;
+  }
+
+  .tier-price strong {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+
+  .tier-price span {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .tier ul {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 1.4rem 0 0;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+
+  .tier li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .tier li svg {
+    flex-shrink: 0;
+    color: var(--sage);
+    transform: translateY(2px);
+  }
+
+  .tier-cta {
+    width: 100%;
+  }
+
+  .pricing-note {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 940px) {
+    .tiers {
+      grid-template-columns: 1fr;
+      max-width: 26rem;
+      margin-inline: auto;
+    }
+  }
+</style>

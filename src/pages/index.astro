@@ -1,9 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import WhyNotHire from '../components/WhyNotHire.astro';
+import Services from '../components/Services.astro';
+import Providers from '../components/Providers.astro';
+import HowWeWork from '../components/HowWeWork.astro';
+import Pricing from '../components/Pricing.astro';
+import FinalCta from '../components/FinalCta.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout>
+  <Nav />
   <main>
-    <h1>infrahats</h1>
+    <Hero />
+    <WhyNotHire />
+    <Services />
+    <Providers />
+    <HowWeWork />
+    <Pricing />
+    <FinalCta />
   </main>
+  <Footer />
 </Layout>

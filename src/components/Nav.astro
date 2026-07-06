@@ -1,0 +1,72 @@
+---
+import { links } from '../data/content';
+---
+
+<header class="nav-wrap">
+  <div class="container nav">
+    <a href="#top" class="brand" aria-label="infrahats home">
+      <img src="/logo.svg" alt="infrahats" width="150" height="24" />
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#providers">Providers</a>
+      <a href="#how">How we work</a>
+      <a href="#pricing">Pricing</a>
+    </nav>
+    <a class="btn btn-primary nav-cta" href={links.calendly} target="_blank" rel="noopener">
+      Book a call
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    background: rgba(10, 14, 18, 0.72);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 4.25rem;
+    gap: 1rem;
+  }
+
+  .brand img {
+    height: 1.5rem;
+    width: auto;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text-dim);
+  }
+
+  .nav-links a {
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--cream);
+  }
+
+  .nav-cta {
+    padding: 0.55rem 1.2rem;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 760px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+import { steps } from '../data/content';
+---
+
+<section class="section container" id="how">
+  <div class="reveal">
+    <span class="eyebrow">{steps.eyebrow}</span>
+    <h2 class="section-title">{steps.title}</h2>
+  </div>
+
+  <ol class="steps">
+    {
+      steps.items.map((step, i) => (
+        <li class="step reveal" style={`--reveal-delay: ${i * 0.12}s`}>
+          <div class="step-marker">
+            <span class="step-dot">{i + 1}</span>
+            <span class="step-line" aria-hidden="true" />
+          </div>
+          <h3>{step.title}</h3>
+          <p>{step.blurb}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .steps {
+    list-style: none;
+    margin: 3rem 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .step-marker {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .step-dot {
+    flex-shrink: 0;
+    width: 2.6rem;
+    height: 2.6rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--sage);
+    background: rgba(156, 178, 146, 0.1);
+    border: 1px solid rgba(156, 178, 146, 0.35);
+  }
+
+  .step-line {
+    flex: 1;
+    height: 1px;
+    margin-left: 0.9rem;
+    background: linear-gradient(90deg, var(--border-bright), transparent);
+  }
+
+  .step:last-child .step-line {
+    display: none;
+  }
+
+  .step h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .steps {
+      grid-template-columns: 1fr;
+      max-width: 30rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 1.1rem;
+    }
+
+    .step-marker {
+      grid-row: 1 / 3;
+      flex-direction: column;
+      margin-bottom: 0;
+    }
+
+    .step-line {
+      width: 1px;
+      height: auto;
+      flex: 1;
+      margin: 0.6rem 0 0;
+      background: linear-gradient(180deg, var(--border-bright), transparent);
+    }
+  }
+</style>
