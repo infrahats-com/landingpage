@@ -174,9 +174,11 @@ const items = providers.items;
     marquee.addEventListener(
       'wheel',
       (e) => {
-        const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-        velocity += delta * 0.02;
-        e.preventDefault();
+        // Only capture horizontal scrolling; vertical wheel keeps scrolling the page.
+        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+          velocity += e.deltaX * 0.02;
+          e.preventDefault();
+        }
       },
       { passive: false }
     );
