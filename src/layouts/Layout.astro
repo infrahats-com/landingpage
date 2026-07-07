@@ -99,6 +99,26 @@ const schema = {
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Google tag (gtag.js) — Google Ads conversion tracking -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=AW-18304232789"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'AW-18304232789');
+
+      // Booking happens on Calendly (external), so the conversion signal is
+      // a click on any Calendly CTA. All of them open in a new tab, so the
+      // event fires without racing page navigation.
+      document.addEventListener('click', (e) => {
+        if (e.target.closest && e.target.closest('a[href*="calendly.com"]')) {
+          gtag('event', 'ads_conversion_Book_appointment_1', {});
+        }
+      });
+    </script>
   </head>
   <body>
     <InfraBackground />
