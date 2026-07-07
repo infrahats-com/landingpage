@@ -174,7 +174,7 @@ export const pricing = {
       name: 'Enterprise',
       price: 'Custom',
       period: '',
-      blurb: 'Dedicated capacity, migrations, and platform builds.',
+      blurb: 'Migrations, platform builds, and embedded senior engineers.',
       popular: false,
       features: [
         'Dedicated engineering capacity',
