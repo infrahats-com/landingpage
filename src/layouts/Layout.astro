@@ -9,6 +9,8 @@ const title = 'infrahats — DevOps, SRE & Cloud Infrastructure On Demand';
 const description =
   'Senior DevOps, SRE & Solutions Architects on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure — AWS, GCP, Azure, Kubernetes.';
 const url = 'https://infrahats.com/';
+const ogImage = `${url}og-image.png`;
+const ogImageAlt = 'infrahats — production-grade infrastructure, without the full-time hire';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -16,7 +18,7 @@ const schema = {
   name: 'infrahats',
   url,
   logo: `${url}logo.svg`,
-  image: `${url}og-image.png`,
+  image: ogImage,
   email: 'hello@infrahats.com',
   description,
   priceRange: '$500 - $1,200+ / month',
@@ -53,6 +55,7 @@ const schema = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <SEO
       title={title}
@@ -62,7 +65,7 @@ const schema = {
         basic: {
           title,
           type: 'website',
-          image: `${url}og-image.png`,
+          image: ogImage,
           url,
         },
         optional: {
@@ -73,7 +76,7 @@ const schema = {
         image: {
           width: 1200,
           height: 630,
-          alt: 'infrahats — production-grade infrastructure, without the full-time hire',
+          alt: ogImageAlt,
           type: 'image/png',
         },
       }}
@@ -81,8 +84,8 @@ const schema = {
         card: 'summary_large_image',
         title,
         description,
-        image: `${url}og-image.png`,
-        imageAlt: 'infrahats — production-grade infrastructure, without the full-time hire',
+        image: ogImage,
+        imageAlt: ogImageAlt,
       }}
       extend={{
         meta: [{ name: 'theme-color', content: '#0a0e12' }],

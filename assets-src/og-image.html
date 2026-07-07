@@ -1,0 +1,35 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  * { margin: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #0a0e12;
+    background-image:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(97,135,138,.28), transparent 60%),
+      radial-gradient(ellipse 700px 400px at 0% 110%, rgba(156,178,146,.14), transparent 60%);
+    font-family: 'Outfit', 'Avenir Next', system-ui, sans-serif;
+    color: #dddcd9;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 0 90px;
+  }
+  .logo { height: 64px; width: auto; margin-bottom: 48px; }
+  h1 { font-size: 74px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.08; }
+  h1 .accent {
+    background: linear-gradient(92deg, #9cb292, #7fb3b8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  p { margin-top: 28px; font-size: 30px; color: #8a949d; font-weight: 500; }
+  .grid {
+    position: fixed; inset: 0; pointer-events: none; opacity: .5;
+    background-image:
+      linear-gradient(rgba(29,40,51,.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29,40,51,.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+</style></head>
+<body>
+  <div class="grid"></div>
+  <img class="logo" src="../public/logo.svg" alt="">
+  <h1>Production-grade infrastructure.<br><span class="accent">Without the full-time hire.</span></h1>
+  <p>DevOps · SRE · Solutions Architecture — on demand · infrahats.com</p>
+</body></html>
