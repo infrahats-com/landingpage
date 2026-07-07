@@ -3,6 +3,7 @@ import '@fontsource-variable/outfit';
 import '../styles/global.css';
 import InfraBackground from '../components/InfraBackground.astro';
 import { SEO } from 'astro-seo';
+import { pricing } from '../data/content';
 
 const title = 'infrahats — DevOps, SRE & Cloud Infrastructure On Demand';
 const description =
@@ -35,27 +36,14 @@ const schema = {
     'AI Infrastructure',
     'Platform Engineering',
   ],
-  makesOffer: [
-    {
-      '@type': 'Offer',
-      name: 'Starter retainer',
-      price: '500',
-      priceCurrency: 'USD',
-      description: 'A reliable senior infrastructure hand, part-time. Up to 30 hrs / month.',
-    },
-    {
-      '@type': 'Offer',
-      name: 'Growth retainer',
-      price: '1200',
-      priceCurrency: 'USD',
-      description: 'Full infrastructure ownership for scaling teams. Up to 50 hrs / month.',
-    },
-    {
-      '@type': 'Offer',
-      name: 'Enterprise',
-      description: 'Dedicated capacity, migrations, and platform builds. Custom pricing.',
-    },
-  ],
+  makesOffer: pricing.tiers.map((t) => ({
+    '@type': 'Offer',
+    name: t.name,
+    description: `${t.blurb}${t.features[0] ? ` ${t.features[0]}.` : ''}`,
+    ...(t.price.startsWith('$')
+      ? { price: t.price.replace(/[$,]/g, ''), priceCurrency: 'USD' }
+      : {}),
+  })),
 };
 ---
 
