@@ -147,10 +147,14 @@ const schema = {
             if (snapping) return;
             clearTimeout(snapTimer);
             snapTimer = setTimeout(() => {
+              const maxY = document.scrollingElement!.scrollHeight - window.innerHeight;
+              // At (or near) the page bottom the user wants the footer —
+              // never pull them back up to align a section.
+              if (window.scrollY >= maxY - 8) return;
               for (const sec of document.querySelectorAll('main .section')) {
                 const padTop = parseFloat(getComputedStyle(sec).paddingTop) || 0;
                 const delta = sec.getBoundingClientRect().top - (CONTENT_ALIGN - padTop);
-                if (Math.abs(delta) > 4 && Math.abs(delta) < THRESHOLD) {
+                if (Math.abs(delta) > 4 && Math.abs(delta) < THRESHOLD && window.scrollY + delta <= maxY) {
                   snapping = true;
                   window.scrollBy({ top: delta, behavior: 'smooth' });
                   setTimeout(() => {
