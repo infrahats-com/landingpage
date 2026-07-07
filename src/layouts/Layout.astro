@@ -14,8 +14,16 @@ const schema = {
   '@type': 'ProfessionalService',
   name: 'infrahats',
   url,
+  logo: `${url}logo.svg`,
+  image: `${url}og-image.png`,
   email: 'hello@infrahats.com',
   description,
+  priceRange: '$500 - $1,200+ / month',
+  areaServed: 'Worldwide',
+  sameAs: [
+    'https://www.linkedin.com/company/infrahats',
+    'https://github.com/infrahats-com',
+  ],
   knowsAbout: [
     'DevOps',
     'Site Reliability Engineering',
@@ -26,6 +34,27 @@ const schema = {
     'Azure',
     'AI Infrastructure',
     'Platform Engineering',
+  ],
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      name: 'Starter retainer',
+      price: '500',
+      priceCurrency: 'USD',
+      description: 'A reliable senior infrastructure hand, part-time. Up to 30 hrs / month.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Growth retainer',
+      price: '1200',
+      priceCurrency: 'USD',
+      description: 'Full infrastructure ownership for scaling teams. Up to 50 hrs / month.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Enterprise',
+      description: 'Dedicated capacity, migrations, and platform builds. Custom pricing.',
+    },
   ],
 };
 ---
