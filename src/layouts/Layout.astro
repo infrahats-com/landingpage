@@ -2,10 +2,11 @@
 import '@fontsource-variable/outfit';
 import '../styles/global.css';
 import InfraBackground from '../components/InfraBackground.astro';
+import { SEO } from 'astro-seo';
 
-const title = 'infrahats — Production-Grade Infrastructure, Without the Full-Time Hire';
+const title = 'infrahats — DevOps, SRE & Cloud Infrastructure On Demand';
 const description =
-  'DevOps, SRE, and Solutions Architecture on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure for startups and enterprises — AWS, GCP, Azure, Kubernetes, AI infrastructure, and more.';
+  'Senior DevOps, SRE & Solutions Architects on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure — AWS, GCP, Azure, Kubernetes.';
 const url = 'https://infrahats.com/';
 
 const schema = {
@@ -34,24 +35,42 @@ const schema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="DevOps retainer, SRE consulting, cloud infrastructure, Kubernetes consulting, platform engineering, AI infrastructure, workload migration, fractional DevOps"
-    />
-    <link rel="canonical" href={url} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={url} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={`${url}og-image.png`} />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <SEO
+      title={title}
+      description={description}
+      canonical={url}
+      openGraph={{
+        basic: {
+          title,
+          type: 'website',
+          image: `${url}og-image.png`,
+          url,
+        },
+        optional: {
+          description,
+          siteName: 'infrahats',
+          locale: 'en_US',
+        },
+        image: {
+          width: 1200,
+          height: 630,
+          alt: 'infrahats — production-grade infrastructure, without the full-time hire',
+          type: 'image/png',
+        },
+      }}
+      twitter={{
+        card: 'summary_large_image',
+        title,
+        description,
+        image: `${url}og-image.png`,
+        imageAlt: 'infrahats — production-grade infrastructure, without the full-time hire',
+      }}
+      extend={{
+        meta: [{ name: 'theme-color', content: '#0a0e12' }],
+      }}
+    />
 
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     <link rel="sitemap" href="/sitemap-index.xml" />
