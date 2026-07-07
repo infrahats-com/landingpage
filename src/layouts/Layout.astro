@@ -14,14 +14,17 @@ const ogImageAlt = 'infrahats — production-grade infrastructure, without the f
 
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
+  // OnlineBusiness (an Organization subtype) fits a worldwide online-only
+  // consultancy — LocalBusiness subtypes like ProfessionalService make
+  // Google's tooling expect a physical address. priceRange is
+  // LocalBusiness-only; the offers below carry the pricing instead.
+  '@type': 'OnlineBusiness',
   name: 'infrahats',
   url,
   logo: `${url}logo.svg`,
   image: ogImage,
   email: 'hello@infrahats.com',
   description,
-  priceRange: '$500 - $1,200+ / month',
   areaServed: 'Worldwide',
   sameAs: [
     'https://www.linkedin.com/company/infrahats',
