@@ -23,7 +23,7 @@ const icons: Record<string, string> = {
   <div class="services-grid">
     {
       services.items.map((item, i) => (
-        <article class="card service-card reveal" style={`--reveal-delay: ${(i % 4) * 0.08}s`}>
+        <a href={`/services/${item.slug}/`} class="card service-card reveal" style={`--reveal-delay: ${(i % 4) * 0.08}s`}>
           <div class="service-icon" aria-hidden="true">
             <svg
               viewBox="0 0 24 24"
@@ -39,10 +39,15 @@ const icons: Record<string, string> = {
           </div>
           <h3>{item.title}</h3>
           <p>{item.blurb}</p>
-        </article>
+          <span class="learn-more">Learn more →</span>
+        </a>
       ))
     }
   </div>
+
+  <p class="services-cta reveal">
+    <a href="/services/">See all services in depth →</a>
+  </p>
 </section>
 
 <style>
@@ -54,8 +59,32 @@ const icons: Record<string, string> = {
   }
 
   .service-card {
+    display: block;
     padding: 1.5rem;
     transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+
+  .learn-more {
+    display: inline-block;
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal-bright);
+  }
+
+  .services-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .services-cta a {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--teal-bright);
+  }
+
+  .services-cta a:hover {
+    color: var(--sage);
   }
 
   .service-card:hover {

@@ -5,16 +5,37 @@ import InfraBackground from '../components/InfraBackground.astro';
 import { SEO } from 'astro-seo';
 import { pricing } from '../data/content';
 
-const title = 'infrahats — DevOps, SRE & Cloud Infrastructure On Demand';
-const description =
-  'Senior DevOps, SRE & Solutions Architects on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure — AWS, GCP, Azure, Kubernetes.';
-const url = 'https://infrahats.com/';
+interface Props {
+  // Per-page overrides. Every page should pass its own title/description —
+  // defaults below are the homepage's, kept here so existing callers
+  // (index.astro) don't have to change.
+  title?: string;
+  description?: string;
+  // Path relative to the site root, e.g. '/services/kubernetes/'. Used to
+  // build the canonical URL and OG url — always include the leading and
+  // trailing slash.
+  path?: string;
+  // Extra JSON-LD objects (Service, FAQPage, BreadcrumbList, ...) to emit
+  // alongside the sitewide Organization schema. Each is rendered as its
+  // own <script type="application/ld+json"> tag.
+  schema?: object[];
+}
+
+const {
+  title = 'DevOps, SRE & Cloud Infrastructure On Demand | infrahats',
+  description = 'Senior DevOps, SRE & Solutions Architects on demand. Production-grade AWS, GCP, Azure & Kubernetes infrastructure — no full-time hire required.',
+  path = '/',
+  schema: extraSchema = [],
+} = Astro.props;
+
+const site = 'https://infrahats.com';
+const url = `${site}${path}`;
 // The ?v= is a cache-buster for social scrapers (LinkedIn caches image
 // fetch failures by exact URL). Bump it whenever og-image.png changes.
-const ogImage = `${url}og-image.png?v=4`;
+const ogImage = `${site}/og-image.png?v=4`;
 const ogImageAlt = 'infrahats — production-grade infrastructure, without the full-time hire';
 
-const schema = {
+const orgSchema = {
   '@context': 'https://schema.org',
   // OnlineBusiness (an Organization subtype) fits a worldwide online-only
   // consultancy — LocalBusiness subtypes like ProfessionalService make
@@ -22,11 +43,12 @@ const schema = {
   // LocalBusiness-only; the offers below carry the pricing instead.
   '@type': 'OnlineBusiness',
   name: 'infrahats',
-  url,
-  logo: `${url}logo.svg`,
+  url: `${site}/`,
+  logo: `${site}/logo.svg`,
   image: ogImage,
   email: 'hello@infrahats.com',
-  description,
+  description:
+    'Senior DevOps, SRE & Solutions Architects on demand. infrahats designs, deploys, and operates production-grade cloud infrastructure — AWS, GCP, Azure, Kubernetes.',
   areaServed: 'Worldwide',
   sameAs: [
     'https://www.linkedin.com/company/infrahats',
@@ -52,6 +74,8 @@ const schema = {
       : {}),
   })),
 };
+
+const allSchema = [orgSchema, ...extraSchema];
 ---
 
 <!doctype html>
@@ -97,7 +121,7 @@ const schema = {
       }}
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    {allSchema.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Google tag (gtag.js) — Google Ads conversion tracking -->

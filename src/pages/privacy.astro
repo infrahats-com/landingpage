@@ -1,0 +1,165 @@
+---
+// Standard-form privacy policy drafted from the facts observable in this
+// codebase (Calendly booking, Google Ads conversion tracking via gtag.js in
+// Layout.astro, hello@infrahats.com contact, no on-site payment collection).
+// This is a reasonable starting draft, not legal advice — have counsel
+// review before treating it as authoritative, especially the data-retention
+// and GDPR/CCPA sections if EU/California clients are expected.
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { links } from '../data/content';
+
+const path = '/privacy/';
+const lastUpdated = 'January 2026';
+---
+
+<Layout
+  title="Privacy Policy | infrahats"
+  description="How infrahats collects, uses, and protects information from visitors and clients of infrahats.com."
+  path={path}
+>
+  <Nav />
+  <main>
+    <section class="section container legal">
+      <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Privacy Policy</span>
+      </nav>
+
+      <div class="reveal">
+        <h1 class="section-title">Privacy Policy</h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+
+        <p>
+          infrahats ("we", "us", "our") provides DevOps, SRE, and cloud infrastructure services. This
+          policy explains what information we collect through infrahats.com, why, and how you can
+          contact us about it.
+        </p>
+
+        <h2>Information we collect</h2>
+        <p>We collect information in two ways:</p>
+        <ul>
+          <li>
+            <strong>Information you provide directly.</strong> If you book a discovery call, we use
+            <a href="https://calendly.com" target="_blank" rel="noopener">Calendly</a>, a third-party
+            scheduling tool, which collects your name, email address, and any details you enter about
+            your project. If you email us at <a href={`mailto:${links.email}`}>{links.email}</a>,
+            we receive whatever you include in that message.
+          </li>
+          <li>
+            <strong>Information collected automatically.</strong> We use Google Ads conversion tracking
+            (via Google's gtag.js) to measure when a visitor clicks through to book a call. This uses
+            cookies or similar technology in your browser and is governed by
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.
+            We do not currently run separate analytics software beyond this conversion tag.
+          </li>
+        </ul>
+
+        <h2>How we use information</h2>
+        <ul>
+          <li>To respond to discovery-call bookings and inquiries</li>
+          <li>To understand which marketing channels lead to booked calls, via Google Ads conversion tracking</li>
+          <li>To deliver the infrastructure services you engage us for, if we begin working together</li>
+        </ul>
+        <p>We do not sell your personal information.</p>
+
+        <h2>Third parties</h2>
+        <p>
+          Scheduling data is processed by Calendly under its own privacy policy. Conversion tracking
+          data is processed by Google under its own privacy policy. We do not share the information you
+          send us with any other third party except as needed to deliver a service you've engaged us
+          for, or as required by law.
+        </p>
+
+        <h2>Data retention</h2>
+        <p>
+          We retain inquiry and booking information for as long as reasonably necessary to respond to
+          your inquiry or deliver an engagement, and then for a limited period afterward for our own
+          business records, unless you ask us to delete it sooner.
+        </p>
+
+        <h2>Your choices</h2>
+        <p>
+          You can ask us to access, correct, or delete personal information we hold about you by
+          emailing <a href={`mailto:${links.email}`}>{links.email}</a>. You can also block conversion
+          tracking cookies through your browser's privacy settings.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          We may update this policy as our tools or practices change. The "Last updated" date above
+          reflects the most recent revision.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about this policy: <a href={`mailto:${links.email}`}>{links.email}</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    max-width: 42rem;
+  }
+
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--teal-bright);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .last-updated {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal p {
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+  }
+
+  .legal h2 {
+    font-size: 1.15rem;
+    margin-top: 2.25rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .legal ul {
+    margin: 0 0 1.1rem;
+    padding-left: 1.2rem;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  .legal a {
+    color: var(--teal-bright);
+  }
+
+  .legal a:hover {
+    color: var(--sage);
+  }
+</style>

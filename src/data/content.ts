@@ -41,51 +41,226 @@ export const services = {
   items: [
     {
       icon: 'foundation',
+      slug: 'infrastructure-foundation',
       title: 'Infrastructure Foundation',
       blurb:
         'Landing zones, networking, IAM, and IaC baselines done right from day one — a foundation that scales with you.',
+      metaTitle: 'Cloud Infrastructure Foundation & Landing Zones | infrahats',
+      metaDescription:
+        'Senior DevOps engineers build your AWS, GCP, or Azure landing zone — networking, IAM, and Terraform baselines that scale with your team.',
+      deck: 'Every reliable platform starts with a foundation that was designed, not accumulated. We set up the networking, identity, and infrastructure-as-code baseline your team will build on for years.',
+      scope: [
+        'Multi-account / multi-project landing zone design on AWS, GCP, or Azure',
+        'Networking (VPCs, subnets, peering, private connectivity)',
+        'IAM structure with least-privilege roles and no shared root credentials',
+        'Terraform (or your IaC tool of choice) baselines, structured for a growing team',
+        'Cost guardrails and tagging conventions from day one',
+      ],
+      faqs: [
+        {
+          q: 'We already have infrastructure — can you still help?',
+          a: 'Yes. We start with an audit of what exists, then propose a plan to close the gaps rather than rebuilding from scratch. Kickoff work begins within 48 hours of onboarding.',
+        },
+        {
+          q: 'Do you require admin or root access to our cloud accounts?',
+          a: 'No. We work with secure, least-privilege access scoped to the work at hand — we never ask for root keys or shared passwords.',
+        },
+        {
+          q: 'Who owns the Terraform/IaC code afterward?',
+          a: 'You do. All work ships via pull requests into your own repositories, so the foundation stays yours even if the engagement ends.',
+        },
+      ],
     },
     {
       icon: 'support',
+      slug: 'support-maintenance',
       title: 'Support & Maintenance',
       blurb:
         'Ongoing operations, upgrades, incident response, and cost reviews. Your infrastructure, handled.',
+      metaTitle: 'DevOps & Cloud Infrastructure Support Retainer | infrahats',
+      metaDescription:
+        'A senior DevOps team on retainer for ongoing operations — upgrades, incident response, monthly health reports, and cost reviews.',
+      deck: 'Infrastructure that runs itself is a myth. It runs because someone is watching upgrades, patching drift, and reviewing costs every month — that someone can be us.',
+      scope: [
+        'Proactive patching and version upgrades (Kubernetes, OS, dependencies)',
+        'Incident response and on-call escalation for infrastructure issues',
+        'Monthly cost and health reviews with a written report',
+        'Drift detection between declared and actual infrastructure state',
+        'Async Slack support, with a weekly sync call on higher tiers',
+      ],
+      faqs: [
+        {
+          q: 'What counts as an "incident" you’ll respond to?',
+          a: 'Anything affecting the infrastructure we manage for you — outages, failed deployments, capacity issues, or security alerts tied to the systems in scope.',
+        },
+        {
+          q: 'Can we pause the retainer if things go quiet?',
+          a: 'Yes — every plan can be paused or cancelled anytime; there’s no lock-in contract.',
+        },
+      ],
     },
     {
       icon: 'deploy',
+      slug: 'deployments',
       title: 'Full & Partial Deployments',
       blurb:
         'Deploy your entire stack or just the missing pieces — pipelines, environments, observability, security.',
+      metaTitle: 'CI/CD Pipelines & Production Deployments | infrahats',
+      metaDescription:
+        'From a single missing CI/CD pipeline to a full production environment — infrahats deploys the pieces your infrastructure is missing.',
+      deck: 'Some teams need a complete production environment built from nothing. Others just need the one pipeline, observability stack, or security layer they never got around to. We do both.',
+      scope: [
+        'CI/CD pipeline design and implementation',
+        'Environment setup (dev, staging, production) with parity between them',
+        'Observability: logging, metrics, tracing, and alerting',
+        'Security baselines (secrets management, network policy, scanning)',
+        'Full-stack deployment for teams starting from zero',
+      ],
+      faqs: [
+        {
+          q: 'Do we need a full deployment, or can you just fix one piece?',
+          a: 'Whichever fits. Partial deployments are common — teams often just need CI/CD, or just observability, without touching the rest of the stack.',
+        },
+        {
+          q: 'Which CI/CD tools do you work with?',
+          a: 'We work with the tooling you already use, or recommend one during discovery if you’re starting fresh — the goal is a pipeline your team can maintain, not a proprietary setup.',
+        },
+      ],
     },
     {
       icon: 'ai',
+      slug: 'ai-infrastructure',
       title: 'AI Infrastructure',
       blurb:
         'GPU clusters, model serving, vector databases, and MLOps pipelines built for production AI workloads.',
+      metaTitle: 'AI & GPU Infrastructure Consulting (MLOps) | infrahats',
+      metaDescription:
+        'Production-grade AI infrastructure: GPU cluster provisioning, model serving, vector databases, and MLOps pipelines from senior DevOps engineers.',
+      deck: 'Running AI workloads in production is a different discipline from prototyping in a notebook. We build the GPU infrastructure, serving layer, and pipelines that keep models running reliably at scale.',
+      scope: [
+        'GPU cluster provisioning and autoscaling (cloud or on-prem)',
+        'Model serving infrastructure and inference endpoints',
+        'Vector database deployment and operations',
+        'MLOps pipelines for training, evaluation, and rollout',
+        'Cost optimization for GPU-heavy workloads',
+      ],
+      faqs: [
+        {
+          q: 'Do you build the models, or just the infrastructure around them?',
+          a: 'Infrastructure and platform engineering — provisioning, serving, pipelines, and reliability. We work alongside your ML/AI team rather than replacing it.',
+        },
+        {
+          q: 'Which cloud GPU providers do you support?',
+          a: 'AWS, GCP, and Azure GPU instances, plus specialized GPU cloud providers — we scope this during the discovery call based on your workload and budget.',
+        },
+      ],
     },
     {
       icon: 'migration',
+      slug: 'workload-migrations',
       title: 'Workload Migrations',
       blurb:
         'Move between clouds, from on-premise to cloud, or VM to Kubernetes — with zero-drama cutovers.',
+      metaTitle: 'Cloud & Kubernetes Migration Services | infrahats',
+      metaDescription:
+        'Cloud-to-cloud, on-premise-to-cloud, or VM-to-Kubernetes migrations planned and executed by senior infrastructure engineers — zero-drama cutovers.',
+      deck: 'Migrations fail on the details: DNS cutover timing, data consistency, rollback plans nobody tested. We plan for those details up front, so the cutover is boring — in a good way.',
+      scope: [
+        'Cloud-to-cloud migration (AWS ↔ GCP ↔ Azure)',
+        'On-premise to cloud migration',
+        'VM to containerized / Kubernetes workload migration',
+        'Migration planning: dependency mapping, rollback plans, cutover windows',
+        'Post-migration validation and monitoring',
+      ],
+      faqs: [
+        {
+          q: 'How do you avoid downtime during a cutover?',
+          a: 'Through dependency mapping and staged cutovers planned before any traffic moves, plus a tested rollback plan — the goal is a cutover with no surprises, not a heroic all-nighter.',
+        },
+        {
+          q: 'Can you migrate us incrementally instead of all at once?',
+          a: 'Yes — most migrations we run are staged by service or workload rather than a single big-bang cutover, which is usually the lower-risk path.',
+        },
+      ],
     },
     {
       icon: 'kubernetes',
+      slug: 'kubernetes',
       title: 'Production-Grade Kubernetes',
       blurb:
         'Hardened clusters with GitOps, autoscaling, observability, and security baked in — not bolted on.',
+      metaTitle: 'Kubernetes Management & Consulting Services | infrahats',
+      metaDescription:
+        'Senior Kubernetes engineers on retainer: hardened clusters, GitOps, autoscaling, and observability built for production — not bolted on later.',
+      deck: 'Kubernetes is easy to get running and hard to get right. We build clusters that are hardened, observable, and managed through GitOps from the start — not patched up after an incident.',
+      scope: [
+        'Cluster provisioning and hardening (EKS, GKE, AKS, or self-managed)',
+        'GitOps-based deployment workflows (ArgoCD, Flux, or similar)',
+        'Autoscaling — cluster, workload, and cost-aware',
+        'Observability: metrics, logs, and alerting tuned to your workloads',
+        'Security baselines: network policy, RBAC, image scanning, secrets management',
+      ],
+      faqs: [
+        {
+          q: 'Managed Kubernetes (EKS/GKE/AKS) or self-managed — which do you recommend?',
+          a: 'It depends on your team’s size, compliance needs, and control-plane requirements — we make a recommendation during the discovery call rather than defaulting to one answer.',
+        },
+        {
+          q: 'Can you take over an existing, unmanaged cluster?',
+          a: 'Yes — this is one of the more common starting points. We audit the current state first, then prioritize the highest-risk gaps before touching anything else.',
+        },
+      ],
     },
     {
       icon: 'platform',
+      slug: 'platform-engineering',
       title: 'Internal Platform Foundations',
       blurb:
         'Golden paths and self-service platforms so your developers ship without waiting on ops.',
+      metaTitle: 'Internal Developer Platform & Platform Engineering | infrahats',
+      metaDescription:
+        'Golden paths and self-service infrastructure so your developers ship without waiting on ops — internal platform engineering from senior engineers.',
+      deck: 'The best infrastructure team is one your developers barely notice — because the platform gives them a golden path to ship safely without filing a ticket. We build that platform.',
+      scope: [
+        'Self-service environment provisioning for developers',
+        '"Golden path" templates for common service patterns',
+        'Internal developer portal / documentation for platform capabilities',
+        'Guardrails that enforce standards without blocking velocity',
+        'Incremental rollout — starts with your highest-friction workflow',
+      ],
+      faqs: [
+        {
+          q: 'Is this the same as "platform engineering" I’ve read about?',
+          a: 'Yes — the goal is the same industry pattern: reduce cognitive load on developers by giving them self-service, paved-road infrastructure instead of ad-hoc tickets to an ops team.',
+        },
+        {
+          q: 'Do we need a large team before this makes sense?',
+          a: 'No — even small teams benefit from removing repeated manual setup work. We scope the first golden path to whatever is currently the biggest time sink.',
+        },
+      ],
     },
     {
       icon: 'knowledge',
+      slug: 'knowledge-base',
       title: 'Knowledge Base',
       blurb:
         'Runbooks, architecture docs, and diagrams — everything we build is documented and owned by you.',
+      metaTitle: 'Infrastructure Documentation & Runbooks | infrahats',
+      metaDescription:
+        'Every system we build ships with runbooks, architecture diagrams, and documentation your team owns — no tribal knowledge, no single point of failure.',
+      deck: 'Infrastructure only your one engineer understands is a liability. Everything we build ships with documentation, so knowledge doesn’t leave when a person does.',
+      scope: [
+        'Runbooks for common operational tasks and incident response',
+        'Architecture diagrams kept in sync with what’s actually deployed',
+        'Onboarding documentation for new engineers joining your team',
+        'Documentation delivered alongside the infrastructure it describes, not after',
+      ],
+      faqs: [
+        {
+          q: 'Where does the documentation live?',
+          a: 'In your own repositories or wiki — wherever your team already looks for it — so it stays yours and stays maintained after the engagement.',
+        },
+      ],
     },
   ],
 };

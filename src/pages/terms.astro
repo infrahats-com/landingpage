@@ -1,0 +1,142 @@
+---
+// Standard-form terms of use for the marketing site itself (booking a call,
+// browsing infrahats.com). This does not attempt to be a services/consulting
+// agreement — that belongs in a separate contract signed per engagement.
+// Draft only, not legal advice — have counsel review before publishing.
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { links } from '../data/content';
+
+const path = '/terms/';
+const lastUpdated = 'January 2026';
+---
+
+<Layout
+  title="Terms of Use | infrahats"
+  description="Terms governing use of infrahats.com. Engagement-specific terms are covered separately in each client's services agreement."
+  path={path}
+>
+  <Nav />
+  <main>
+    <section class="section container legal">
+      <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Terms of Use</span>
+      </nav>
+
+      <div class="reveal">
+        <h1 class="section-title">Terms of Use</h1>
+        <p class="last-updated">Last updated: {lastUpdated}</p>
+
+        <p>
+          These terms govern your use of infrahats.com. If you engage infrahats for services, that
+          engagement is governed by a separate services agreement provided at the time of booking —
+          these terms apply only to the website itself.
+        </p>
+
+        <h2>Use of this site</h2>
+        <p>
+          You may browse infrahats.com and use the booking link to schedule a discovery call. Content
+          on this site — including copy, design, and the infrahats name and logo — belongs to infrahats
+          and may not be reproduced without permission.
+        </p>
+
+        <h2>No guarantee of engagement</h2>
+        <p>
+          Booking a discovery call does not create a services agreement. Scope, pricing, and terms for
+          any engagement are agreed separately before work begins.
+        </p>
+
+        <h2>Third-party links and tools</h2>
+        <p>
+          This site links to and uses third-party services, including
+          <a href="https://calendly.com" target="_blank" rel="noopener">Calendly</a> for scheduling and
+          Google Ads for conversion tracking. Your use of those tools is governed by their own terms,
+          not ours.
+        </p>
+
+        <h2>No warranty</h2>
+        <p>
+          This site and its content are provided "as is." We make reasonable efforts to keep
+          information accurate but don't guarantee it's error-free or that the site will be
+          uninterrupted.
+        </p>
+
+        <h2>Limitation of liability</h2>
+        <p>
+          To the extent permitted by law, infrahats is not liable for indirect or consequential
+          damages arising from your use of this website. This does not limit liability under any
+          separate services agreement you enter into with us.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+          We may update these terms as the site changes. The "Last updated" date above reflects the
+          most recent revision.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          Questions about these terms: <a href={`mailto:${links.email}`}>{links.email}</a>.
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .legal {
+    max-width: 42rem;
+  }
+
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--teal-bright);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .last-updated {
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .legal p {
+    color: var(--text);
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+  }
+
+  .legal h2 {
+    font-size: 1.15rem;
+    margin-top: 2.25rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .legal a {
+    color: var(--teal-bright);
+  }
+
+  .legal a:hover {
+    color: var(--sage);
+  }
+</style>

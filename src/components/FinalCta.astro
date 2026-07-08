@@ -10,9 +10,14 @@ import { finalCta, links } from '../data/content';
     </span>
     <h2>{finalCta.title}</h2>
     <p>{finalCta.lead}</p>
-    <a class="btn btn-primary cta-btn" href={links.calendly} target="_blank" rel="noopener">
-      {finalCta.cta} →
-    </a>
+    <div class="cta-actions">
+      <a class="btn btn-primary cta-btn" href={links.calendly} target="_blank" rel="noopener">
+        {finalCta.cta} →
+      </a>
+      <a class="cta-secondary" href={`mailto:${links.email}`}>
+        Not ready to talk? Email us a question
+      </a>
+    </div>
     <small>{finalCta.microcopy}</small>
   </div>
 </section>
@@ -81,6 +86,27 @@ import { finalCta, links } from '../data/content';
   .cta-btn {
     font-size: 1.02rem;
     padding: 1rem 2.2rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .cta-secondary {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--border-bright);
+  }
+
+  .cta-secondary:hover {
+    color: var(--teal-bright);
+    text-decoration-color: var(--teal-bright);
   }
 
   .cta-card small {

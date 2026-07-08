@@ -1,0 +1,257 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { services, links } from '../../data/content';
+
+export function getStaticPaths() {
+  return services.items.map((item, i) => ({
+    params: { slug: item.slug },
+    props: {
+      item,
+      // Two other services, chosen in a fixed ring so every page links to
+      // two different neighbors and nothing ends up orphaned or over-linked.
+      related: [
+        services.items[(i + 1) % services.items.length],
+        services.items[(i + 2) % services.items.length],
+      ],
+    },
+  }));
+}
+
+const { item, related } = Astro.props;
+
+const path = `/services/${item.slug}/`;
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: item.title,
+  name: item.title,
+  description: item.deck,
+  provider: { '@type': 'Organization', name: 'infrahats', url: 'https://infrahats.com/' },
+  areaServed: 'Worldwide',
+};
+
+const faqSchema = item.faqs?.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: item.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    }
+  : null;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infrahats.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://infrahats.com/services/' },
+    { '@type': 'ListItem', position: 3, name: item.title, item: `https://infrahats.com${path}` },
+  ],
+};
+
+const schema = [serviceSchema, breadcrumbSchema, ...(faqSchema ? [faqSchema] : [])];
+---
+
+<Layout title={item.metaTitle} description={item.metaDescription} path={path} schema={schema}>
+  <Nav />
+  <main>
+    <section class="section container">
+      <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/services/">Services</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{item.title}</span>
+      </nav>
+
+      <div class="service-hero reveal">
+        <span class="eyebrow">Services</span>
+        <h1 class="section-title">{item.title}</h1>
+        <p class="section-lead deck">{item.deck}</p>
+        <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">
+          Book a free discovery call
+        </a>
+      </div>
+
+      <div class="service-body">
+        <div class="card reveal">
+          <h2>What's included</h2>
+          <ul class="scope-list">
+            {item.scope?.map((line) => <li>{line}</li>)}
+          </ul>
+        </div>
+
+        {item.faqs?.length ? (
+          <div class="reveal">
+            <h2>Frequently asked questions</h2>
+            <div class="faq-list">
+              {item.faqs.map((f) => (
+                <details class="faq-item">
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+
+      <div class="related reveal">
+        <h2>Related services</h2>
+        <div class="related-grid">
+          {related.map((r) => (
+            <a class="card related-card" href={`/services/${r.slug}/`}>
+              <h3>{r.title}</h3>
+              <p>{r.blurb}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+
+  .breadcrumbs a:hover {
+    color: var(--teal-bright);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .service-hero {
+    max-width: 44rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .deck {
+    max-width: none;
+    font-size: 1.1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .service-body {
+    display: grid;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .service-body h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .card {
+    padding: 1.75rem 2rem;
+  }
+
+  .scope-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.75rem;
+    color: var(--text);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--cream);
+    list-style: none;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::before {
+    content: '+';
+    display: inline-block;
+    width: 1.2em;
+    color: var(--sage);
+    font-weight: 700;
+  }
+
+  .faq-item[open] summary::before {
+    content: '−';
+  }
+
+  .faq-item p {
+    margin-top: 0.75rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .related h2 {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.1rem;
+  }
+
+  .related-card {
+    display: block;
+    padding: 1.5rem;
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .related-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .related-card p {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 720px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
