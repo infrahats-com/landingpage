@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { about, links } from '../data/content';
+
+const path = '/about/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infrahats.com/' },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `https://infrahats.com${path}` },
+  ],
+};
+---
+
+<Layout
+  title="About infrahats | Senior DevOps, SRE & Cloud Infrastructure Engineers"
+  description="We help startups and growing companies deploy and operate production-grade infrastructure without the cost of a full-time engineering team."
+  path={path}
+  schema={[breadcrumbSchema]}
+>
+  <Nav />
+  <main>
+    <section class="section container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">About</span>
+      </nav>
+
+      <div class="page-hero">
+        <span class="eyebrow">{about.eyebrow}</span>
+        <h1 class="section-title">{about.title}</h1>
+        <p class="section-lead">{about.lead}</p>
+        <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">
+          Book a discovery call
+        </a>
+      </div>
+
+      <div class="cards-grid">
+        {about.pillars.map((pillar) => (
+          <article class="card">
+            <h2>{pillar.title}</h2>
+            <p>{pillar.body}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="stats-grid">
+        {about.stats.map((stat) => (
+          <div class="stat-card">
+            <strong>{stat.value}</strong>
+            <span>{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .page-hero {
+    max-width: 46rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .card {
+    padding: 1.4rem 1.5rem;
+  }
+
+  .card h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .card p {
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .stat-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 1.1rem 1.2rem;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .stat-card strong {
+    display: block;
+    font-size: 1.05rem;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-card span {
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 860px) {
+    .cards-grid,
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
