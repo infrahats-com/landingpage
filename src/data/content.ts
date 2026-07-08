@@ -378,3 +378,98 @@ export const footer = {
     'Senior DevOps, SRE, and Solutions Architecture on demand. Production-grade infrastructure for startups and enterprises.',
   copyright: '© 2026 infrahats. All rights reserved.',
 };
+
+export const about = {
+  eyebrow: 'About infrahats',
+  title: 'Senior infrastructure engineers on demand',
+  lead:
+    'We help startups and growing companies build and operate production-grade cloud systems without hiring a full-time team.',
+  pillars: [
+    {
+      title: 'Built for speed',
+      body:
+        'We get from discovery to deployment quickly, with clear milestones and secure access from day one.',
+    },
+    {
+      title: 'Owned by your team',
+      body:
+        'Everything ships through your repositories and your processes, so the work stays portable and maintainable.',
+    },
+    {
+      title: 'Operationally mature',
+      body:
+        'We focus on reliability, observability, and support so infrastructure is stable long after launch.',
+    },
+  ],
+  stats: [
+    { label: 'Typical kickoff', value: 'within 48 hours' },
+    { label: 'Engagement style', value: 'retainer or project' },
+    { label: 'Support model', value: 'async + weekly sync' },
+  ],
+};
+
+export const contact = {
+  eyebrow: 'Contact',
+  title: 'Book a discovery call',
+  lead:
+    'Tell us what your platform looks like today and what you want to ship next. We will help you scope the right engagement.',
+  channels: [
+    {
+      label: 'Email',
+      value: links.email,
+      href: `mailto:${links.email}`,
+    },
+    {
+      label: 'Calendly',
+      value: 'Book a time',
+      href: links.calendly,
+    },
+    {
+      label: 'LinkedIn',
+      value: 'Follow updates',
+      href: links.linkedin,
+    },
+  ],
+};
+
+export const caseStudies = {
+  eyebrow: 'Case studies',
+  title: 'Infrastructure outcomes for modern teams',
+  lead:
+    'We help teams move from brittle setups to reliable, production-ready platforms with fewer handoffs and faster delivery.',
+  items: [
+    {
+      title: 'Cloud foundation for a growing SaaS company',
+      summary:
+        'We built a secure landing zone, improved CI/CD, and reduced deployment friction so the team could ship faster with less operational load.',
+      outcomes: ['Faster release cycles', 'Cleaner IAM boundaries', 'A scalable IaC baseline'],
+    },
+    {
+      title: 'Kubernetes operations for an AI infrastructure team',
+      summary:
+        'We hardened clusters, introduced observability, and reduced incident response time for GPU-backed workloads.',
+      outcomes: ['Improved reliability', 'Better cost visibility', 'Operational runbooks and alerting'],
+    },
+    {
+      title: 'Migration support for a startup expanding internationally',
+      summary:
+        'We planned and executed a staged migration with rollback-safe cutovers and minimal disruption to production traffic.',
+      outcomes: ['Lower-risk cutovers', 'Less downtime', 'Clear ownership and documentation'],
+    },
+  ],
+};
+
+export const blog = {
+  eyebrow: 'Insights',
+  title: 'Practical engineering notes from the field',
+  lead:
+    'We publish guidance on platform engineering, cloud reliability, migrations, and the operational habits behind production systems.',
+  posts: [
+    {
+      title: 'Why infrastructure teams need a golden path',
+      slug: 'golden-paths-platform-engineering',
+      summary:
+        'A simple framework for reducing cognitive load and helping developers ship without waiting on ad-hoc ops work.',
+    },
+  ],
+};

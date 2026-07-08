@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { blog, links } from '../../data/content';
+
+export function getStaticPaths() {
+  return blog.posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const path = `/blog/${post.slug}/`;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infrahats.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://infrahats.com/blog/' },
+    { '@type': 'ListItem', position: 3, name: post.title, item: `https://infrahats.com${path}` },
+  ],
+};
+---
+
+<Layout
+  title={`${post.title} | infrahats`}
+  description={post.summary}
+  path={path}
+  schema={[breadcrumbSchema]}
+>
+  <Nav />
+  <main>
+    <section class="section container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a href="/blog/">Blog</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{post.title}</span>
+      </nav>
+
+      <article class="content-card">
+        <span class="eyebrow">Insights</span>
+        <h1 class="section-title">{post.title}</h1>
+        <p class="section-lead">{post.summary}</p>
+        <p class="body-copy">
+          This article is a starting point for deeper content publishing. We will expand this section over time with more practical guidance for engineering teams.
+        </p>
+        <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">Book a discovery call</a>
+      </article>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .content-card {
+    max-width: 46rem;
+    padding: 2rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .body-copy {
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin: 1rem 0 1.4rem;
+  }
+</style>

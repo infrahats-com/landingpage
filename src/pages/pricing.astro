@@ -1,0 +1,156 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { pricing, links } from '../data/content';
+
+const path = '/pricing/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infrahats.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Pricing', item: `https://infrahats.com${path}` },
+  ],
+};
+---
+
+<Layout
+  title="Infrastructure Retainer Pricing | infrahats"
+  description="Simple monthly pricing for DevOps, SRE, cloud infrastructure, and platform engineering support. Pause or cancel anytime."
+  path={path}
+  schema={[breadcrumbSchema]}
+>
+  <Nav />
+  <main>
+    <section class="section container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Pricing</span>
+      </nav>
+
+      <div class="page-hero">
+        <span class="eyebrow">{pricing.eyebrow}</span>
+        <h1 class="section-title">{pricing.title}</h1>
+        <p class="section-lead">{pricing.lead}</p>
+      </div>
+
+      <div class="pricing-grid">
+        {pricing.tiers.map((tier) => (
+          <article class={`card tier-card ${tier.popular ? 'popular' : ''}`}>
+            <div class="tier-head">
+              <h2>{tier.name}</h2>
+              {tier.popular ? <span class="pill">Most popular</span> : null}
+            </div>
+            <p class="price">{tier.price}<span>{tier.period}</span></p>
+            <p class="blurb">{tier.blurb}</p>
+            <ul>
+              {tier.features.map((feature) => <li>{feature}</li>)}
+            </ul>
+            <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">
+              {tier.cta}
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="note">{pricing.note}</p>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .page-hero {
+    max-width: 46rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .tier-card {
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .tier-card.popular {
+    border-color: var(--teal-bright);
+    box-shadow: 0 0 0 1px rgba(127, 179, 184, 0.3);
+  }
+
+  .tier-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .pill {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--teal-bright);
+  }
+
+  .price {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .price span {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-left: 0.35rem;
+  }
+
+  .blurb {
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .tier-card ul {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.55rem;
+    color: var(--text-dim);
+    flex: 1;
+  }
+
+  .note {
+    margin-top: 1.4rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 860px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

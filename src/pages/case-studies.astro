@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { caseStudies, links } from '../data/content';
+
+const path = '/case-studies/';
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://infrahats.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Case studies', item: `https://infrahats.com${path}` },
+  ],
+};
+---
+
+<Layout
+  title="Case Studies | DevOps, SRE & Infrastructure Consulting"
+  description="See how infrahats helps teams improve reliability, reduce operational friction, and ship production-grade infrastructure with confidence."
+  path={path}
+  schema={[breadcrumbSchema]}
+>
+  <Nav />
+  <main>
+    <section class="section container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Case studies</span>
+      </nav>
+
+      <div class="page-hero">
+        <span class="eyebrow">{caseStudies.eyebrow}</span>
+        <h1 class="section-title">{caseStudies.title}</h1>
+        <p class="section-lead">{caseStudies.lead}</p>
+      </div>
+
+      <div class="study-grid">
+        {caseStudies.items.map((item) => (
+          <article class="card study-card">
+            <h2>{item.title}</h2>
+            <p>{item.summary}</p>
+            <ul>
+              {item.outcomes.map((outcome) => <li>{outcome}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+
+      <div class="cta-box">
+        <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">Book a discovery call</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumbs a {
+    color: var(--text-dim);
+  }
+
+  .breadcrumbs [aria-current='page'] {
+    color: var(--cream);
+  }
+
+  .page-hero {
+    max-width: 46rem;
+    margin-bottom: 2rem;
+  }
+
+  .study-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .study-card {
+    padding: 1.3rem 1.4rem;
+  }
+
+  .study-card h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .study-card p {
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 0.7rem;
+  }
+
+  .study-card ul {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.45rem;
+    color: var(--text-dim);
+  }
+
+  .cta-box {
+    margin-top: 1.3rem;
+  }
+</style>
