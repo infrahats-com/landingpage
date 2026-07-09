@@ -35,6 +35,7 @@ const breadcrumbSchema = {
         <span class="eyebrow">{caseStudies.eyebrow}</span>
         <h1 class="section-title">{caseStudies.title}</h1>
         <p class="section-lead">{caseStudies.lead}</p>
+        <p class="illustrative-note">{caseStudies.note}</p>
       </div>
 
       <div class="study-grid">
@@ -78,6 +79,17 @@ const breadcrumbSchema = {
   .page-hero {
     max-width: 46rem;
     margin-bottom: 2rem;
+  }
+
+  .illustrative-note {
+    margin-top: 1rem;
+    padding: 0.85rem 1.1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-faint);
+    font-size: 0.85rem;
+    line-height: 1.6;
   }
 
   .study-grid {

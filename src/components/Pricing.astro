@@ -21,7 +21,7 @@ import { pricing, links } from '../data/content';
             <span>{tier.period}</span>
           </div>
           <ul>
-            {tier.features.map((f) => (
+            {tier.features.slice(0, 3).map((f) => (
               <li>
                 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="m4.5 12.5 5 5 10-11" />
@@ -43,7 +43,9 @@ import { pricing, links } from '../data/content';
     }
   </div>
 
-  <p class="pricing-note reveal">{pricing.note}</p>
+  <p class="pricing-note reveal">
+    {pricing.note} · <a href="/pricing/">See full pricing &amp; features →</a>
+  </p>
 </section>
 
 <style>
@@ -159,6 +161,15 @@ import { pricing, links } from '../data/content';
     text-align: center;
     font-size: 0.85rem;
     color: var(--text-faint);
+  }
+
+  .pricing-note a {
+    color: var(--teal-bright);
+    font-weight: 600;
+  }
+
+  .pricing-note a:hover {
+    color: var(--sage);
   }
 
   @media (max-width: 940px) {

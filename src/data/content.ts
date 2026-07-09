@@ -433,10 +433,11 @@ export const contact = {
 };
 
 export const caseStudies = {
-  eyebrow: 'Case studies',
-  title: 'Infrastructure outcomes for modern teams',
+  eyebrow: 'Example engagements',
+  title: 'What working with us looks like',
   lead:
     'We help teams move from brittle setups to reliable, production-ready platforms with fewer handoffs and faster delivery.',
+  note: 'These are illustrative examples of the kind of engagements we run, based on common patterns across clients — not a specific named case study. Ask us for references on your discovery call.',
   items: [
     {
       title: 'Cloud foundation for a growing SaaS company',
@@ -470,6 +471,29 @@ export const blog = {
       slug: 'golden-paths-platform-engineering',
       summary:
         'A simple framework for reducing cognitive load and helping developers ship without waiting on ad-hoc ops work.',
+      body: [
+        {
+          heading: 'The problem golden paths solve',
+          paragraphs: [
+            'Most infrastructure teams don’t start out slow. They start out helpful — every request gets handled personally, every new service gets a hand-rolled pipeline, every environment gets configured by whoever’s free. That works fine at five services. By fifty, the team is a queue, and every developer is blocked on a person instead of a process.',
+            'A "golden path" is the opposite of that: a pre-approved, self-service way to do the common thing — spin up a new service, add a database, deploy to staging — without filing a ticket or waiting on a specific engineer. It’s the paved road. Nothing stops a team from going off-road for a genuinely unusual case, but the road exists, and most traffic uses it.',
+          ],
+        },
+        {
+          heading: 'What a golden path actually contains',
+          paragraphs: [
+            'In practice, a golden path is usually three things working together, not one: a template (the scaffolding for a new service or environment, already wired up to CI/CD, logging, and secrets management), guardrails (policy enforced automatically — network rules, resource quotas, tagging — so the fast path is also the safe path), and documentation that’s actually current, because it’s generated from or tested against the template rather than written once and left to rot.',
+            'The order matters. Teams that start with documentation and no template end up with tribal knowledge that drifts from reality within a quarter. Teams that start with a template and no guardrails end up with a fast way to create insecure or non-compliant services. The template and the guardrails need to ship together.',
+          ],
+        },
+        {
+          heading: 'Where to start if you have neither',
+          paragraphs: [
+            'Don’t try to build a platform for every service type at once. Find the single workflow your developers repeat most often — usually "stand up a new service" or "get a database provisioned" — and build the golden path for that one thing first. Ship it, watch whether people actually use it over the manual process, and only then expand scope.',
+            'The signal that it’s working isn’t a shrinking ops backlog — it’s developers reaching for the paved road by default because it’s genuinely faster than asking a human, not because they’re required to.',
+          ],
+        },
+      ],
     },
   ],
 };

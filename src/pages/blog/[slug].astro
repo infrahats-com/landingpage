@@ -46,9 +46,14 @@ const breadcrumbSchema = {
         <span class="eyebrow">Insights</span>
         <h1 class="section-title">{post.title}</h1>
         <p class="section-lead">{post.summary}</p>
-        <p class="body-copy">
-          This article is a starting point for deeper content publishing. We will expand this section over time with more practical guidance for engineering teams.
-        </p>
+
+        {post.body?.map((section) => (
+          <div class="body-section">
+            <h2>{section.heading}</h2>
+            {section.paragraphs.map((p) => <p class="body-copy">{p}</p>)}
+          </div>
+        ))}
+
         <a class="btn btn-primary" href={links.calendly} target="_blank" rel="noopener">Book a discovery call</a>
       </article>
     </section>
@@ -82,9 +87,22 @@ const breadcrumbSchema = {
     background: rgba(255,255,255,0.03);
   }
 
+  .body-section {
+    margin: 1.75rem 0;
+  }
+
+  .body-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.85rem;
+  }
+
   .body-copy {
     color: var(--text-dim);
     line-height: 1.8;
-    margin: 1rem 0 1.4rem;
+    margin: 0 0 1rem;
+  }
+
+  .body-copy:last-child {
+    margin-bottom: 0;
   }
 </style>
