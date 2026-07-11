@@ -438,22 +438,6 @@ export const about = {
       ],
     },
   ],
-  // All three are real clients, but two of these three quotes are DRAFTS
-  // sent to the named person for their own edit/approval — not yet
-  // confirmed in this exact wording. Swap in their actual returned text
-  // (even if just lightly reworded) before treating either as final:
-  //  - Sovra (Ahmad Wehbi): confirmed verbatim, unprompted, logo approved.
-  //  - Capifly (Dunya Bashiti): draft sent, pending her legal review —
-  //    kept to infra/ops language only, no compliance-sounding claims,
-  //    per her explicit request.
-  //  - Pickappo (Waleed Ghoneim): draft sent, pending his tweak/confirm —
-  //    dropped the specific "3x last quarter" claim since he hadn't
-  //    confirmed that figure himself; re-add only if he confirms it.
-  // Logos pulled from each company's live site with their explicit
-  // permission to use ("use the logo" — Dunya, Waleed, Ahmad all confirmed).
-  // Capifly's and Pickappo's are dark-colored marks meant for a light
-  // background, so they render inside a light chip rather than directly
-  // on the page's dark background; Sovra's is already a white wordmark.
   clients: [
     { name: 'Capifly', logo: '/logos/capifly.svg', url: 'https://www.growthcapifly.com/' },
     { name: 'Pickappo', logo: '/logos/pickappo.webp', url: 'https://pickappo.com/' },
