@@ -415,11 +415,11 @@ export const about = {
       certifications: [
         {
           name: 'AWS Certified Solutions Architect – Professional',
-          url: 'https://www.credly.com/earner/earned/badge/2727295b-1c28-4c77-9ee8-a7db02fbfcaa',
+          url: 'https://www.credly.com/badges/2727295b-1c28-4c77-9ee8-a7db02fbfcaa/public_url',
         },
         {
           name: 'AWS Certified Solutions Architect – Associate',
-          url: 'https://www.credly.com/earner/earned/badge/15d1050b-2973-4356-bfba-a498cdc63361',
+          url: 'https://www.credly.com/badges/15d1050b-2973-4356-bfba-a498cdc63361/public_url',
         },
       ],
     },
