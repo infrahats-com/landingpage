@@ -92,6 +92,17 @@ const breadcrumbSchema = {
         </div>
       </div>
 
+      <div class="clients-section">
+        <h2>Companies we work with</h2>
+        <div class="clients-grid">
+          {about.clients.map((client) => (
+            <a class="client-chip" href={client.url} target="_blank" rel="noopener" aria-label={client.name}>
+              <img src={client.logo} alt={client.name} loading="lazy" />
+            </a>
+          ))}
+        </div>
+      </div>
+
       <div class="testimonials-section">
         <h2>What clients say</h2>
         <div class="testimonials-grid">
@@ -184,14 +195,46 @@ const breadcrumbSchema = {
   }
 
   .team-section,
+  .clients-section,
   .testimonials-section {
     margin-top: 3.5rem;
   }
 
   .team-section h2,
+  .clients-section h2,
   .testimonials-section h2 {
     font-size: 1.3rem;
     margin-bottom: 1.5rem;
+  }
+
+  .clients-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .client-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.5rem;
+    padding: 0.9rem 1.75rem;
+    background: #f4f4f2;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
+  }
+
+  .client-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .client-chip img {
+    height: 1.9rem;
+    width: auto;
+    max-width: 9rem;
+    object-fit: contain;
   }
 
   .team-grid {

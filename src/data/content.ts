@@ -449,6 +449,16 @@ export const about = {
   //  - Pickappo (Waleed Ghoneim): draft sent, pending his tweak/confirm —
   //    dropped the specific "3x last quarter" claim since he hadn't
   //    confirmed that figure himself; re-add only if he confirms it.
+  // Logos pulled from each company's live site with their explicit
+  // permission to use ("use the logo" — Dunya, Waleed, Ahmad all confirmed).
+  // Capifly's and Pickappo's are dark-colored marks meant for a light
+  // background, so they render inside a light chip rather than directly
+  // on the page's dark background; Sovra's is already a white wordmark.
+  clients: [
+    { name: 'Capifly', logo: '/logos/capifly.svg', url: 'https://www.growthcapifly.com/' },
+    { name: 'Pickappo', logo: '/logos/pickappo.webp', url: 'https://pickappo.com/' },
+    { name: 'Sovra', logo: '/logos/sovra.svg', url: 'https://sovra.money/' },
+  ],
   testimonials: [
     {
       quote: 'The only infra vendor that didn’t make me feel like I was being sold to.',
