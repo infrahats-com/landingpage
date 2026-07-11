@@ -106,12 +106,21 @@ const breadcrumbSchema = {
       <div class="testimonials-section">
         <h2>What clients say</h2>
         <div class="testimonials-grid">
-          {about.testimonials.map((t) => (
-            <blockquote class="card testimonial-card">
-              <p class="testimonial-quote">"{t.quote}"</p>
-              <footer class="testimonial-attribution">{t.attribution}</footer>
-            </blockquote>
-          ))}
+          {about.testimonials.map((t) => {
+            const paragraphs = t.quote.split('\n\n');
+            return (
+              <blockquote class="card testimonial-card">
+                {paragraphs.map((para, i) => (
+                  <p class="testimonial-quote">
+                    {i === 0 && '"'}
+                    {para}
+                    {i === paragraphs.length - 1 && '"'}
+                  </p>
+                ))}
+                <footer class="testimonial-attribution">{t.attribution}</footer>
+              </blockquote>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -321,20 +330,25 @@ const breadcrumbSchema = {
 
   .testimonials-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.1rem;
   }
 
   .testimonial-card {
-    padding: 1.5rem 1.6rem;
+    padding: 1.6rem 1.9rem;
     margin: 0;
+    max-width: 44rem;
   }
 
   .testimonial-quote {
     color: var(--text);
     line-height: 1.7;
     font-size: 0.92rem;
-    margin: 0 0 1rem;
+    margin: 0 0 0.9rem;
+  }
+
+  .testimonial-quote:last-of-type {
+    margin-bottom: 1rem;
   }
 
   .testimonial-attribution {
@@ -344,8 +358,7 @@ const breadcrumbSchema = {
   }
 
   @media (max-width: 860px) {
-    .team-grid,
-    .testimonials-grid {
+    .team-grid {
       grid-template-columns: 1fr;
     }
   }

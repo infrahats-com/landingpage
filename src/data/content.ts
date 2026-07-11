@@ -445,7 +445,8 @@ export const about = {
   ],
   testimonials: [
     {
-      quote: 'The only infra vendor that didn’t make me feel like I was being sold to.',
+      quote:
+        'We’re building a self-custodial fintech — people hold digital dollars directly, on Visa and Mastercard rails, with no custodian standing between them and their money. When your whole pitch to users is “the infrastructure just works,” you can’t be casual about who you trust to help run it.\n\nSo we were careful evaluating infra partners. Most conversations felt like sales calls — someone trying to close a deal before they understood our stack. infrahats was different from the first call: specific questions about what we’d actually built, no pressure, no generic pitch. It told us more about how they’d operate day-to-day than any case study could have.\n\nWe’re still early in the engagement, but that first impression has held — clear about scope, clear about what access they need and why, straightforward about timelines. For a team that just raised a pre-seed round and can’t afford to get infrastructure trust wrong, that’s exactly the kind of partner we were looking for.',
       attribution: 'Ahmad Wehbi, Founder, Sovra',
     },
     {
