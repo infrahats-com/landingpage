@@ -438,24 +438,31 @@ export const about = {
       ],
     },
   ],
-  // Placeholder testimonials — swap for real client quotes once collected
-  // (expected within a few days). Attributed by role only, no invented
-  // company names, so nothing here reads as impersonating a real business.
+  // All three are real clients, but two of these three quotes are DRAFTS
+  // sent to the named person for their own edit/approval — not yet
+  // confirmed in this exact wording. Swap in their actual returned text
+  // (even if just lightly reworded) before treating either as final:
+  //  - Sovra (Ahmad Wehbi): confirmed verbatim, unprompted, logo approved.
+  //  - Capifly (Dunya Bashiti): draft sent, pending her legal review —
+  //    kept to infra/ops language only, no compliance-sounding claims,
+  //    per her explicit request.
+  //  - Pickappo (Waleed Ghoneim): draft sent, pending his tweak/confirm —
+  //    dropped the specific "3x last quarter" claim since he hadn't
+  //    confirmed that figure himself; re-add only if he confirms it.
   testimonials: [
     {
-      quote:
-        'They came in, audited our setup, and had a real plan within a week. No jargon, no upsell — just the fixes we actually needed.',
-      attribution: 'VP Engineering, Series A fintech startup',
+      quote: 'The only infra vendor that didn’t make me feel like I was being sold to.',
+      attribution: 'Ahmad Wehbi, Founder, Sovra',
     },
     {
       quote:
-        'Handed off our Kubernetes cluster expecting a rough transition. Instead, deployment times dropped and our on-call load nearly disappeared.',
-      attribution: 'Head of Platform, B2B SaaS company',
+        'We were expanding into Saudi and needed our infrastructure to keep pace — data residency, redundancy, access controls — without pulling a founder off product work to figure it out. Hiring a full-time senior DevOps engineer didn’t make sense at pre-seed, but leaving it to whoever had a free afternoon wasn’t working either. infrahats treated our infrastructure like it was their own — hardened our access controls, got the multi-region groundwork in place for the expansion, and everything shipped through PRs into our own repos, so we always know what’s running in production. We pay a fraction of what a senior hire would cost, and we can pause anytime.',
+      attribution: 'Dunya Bashiti, Co-Founder & CEO, Capifly',
     },
     {
       quote:
-        'Having a senior DevOps team on retainer instead of a full-time hire was the right call for where we are. Responsive, and everything ships through PRs we can actually review.',
-      attribution: 'CTO, early-stage startup',
+        'We’re an AI-driven delivery startup with a small team. The classic trap is your best engineer becomes your accidental ops person, and suddenly nobody’s shipping product features because someone’s debugging a Kubernetes ingress issue at 2am. That was us. infrahats runs our cloud infra, Kubernetes clusters, and CI/CD on a flat monthly retainer. We knew our infrastructure wouldn’t hold as delivery volume kept growing, and having them ahead of that curve means I don’t have to think about whether it keeps up. The “pause or cancel anytime” thing isn’t just marketing — it means we can treat this as a variable cost instead of a fixed hire.',
+      attribution: 'Waleed Ghoneim, Founder & CEO, Pickappo',
     },
   ],
 };
