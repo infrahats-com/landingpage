@@ -63,7 +63,11 @@ const breadcrumbSchema = {
         <div class="team-grid">
           {about.team.map((person) => (
             <article class="card team-card">
-              <div class="team-avatar" aria-hidden="true">{person.name.split(' ').map((n) => n[0]).join('')}</div>
+              {person.photo ? (
+                <img class="team-avatar-photo" src={person.photo} alt={person.name} width="72" height="72" loading="lazy" />
+              ) : (
+                <div class="team-avatar" aria-hidden="true">{person.name.split(' ').map((n) => n[0]).join('')}</div>
+              )}
               <h3>{person.name}</h3>
               <p class="team-role">{person.role}</p>
               <p class="team-bio">{person.bio}</p>
@@ -211,6 +215,15 @@ const breadcrumbSchema = {
     font-size: 1.05rem;
     color: var(--sage);
     background: rgba(156, 178, 146, 0.12);
+    border: 1px solid rgba(156, 178, 146, 0.3);
+    margin-bottom: 1rem;
+  }
+
+  .team-avatar-photo {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    object-fit: cover;
     border: 1px solid rgba(156, 178, 146, 0.3);
     margin-bottom: 1rem;
   }

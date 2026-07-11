@@ -409,6 +409,7 @@ export const about = {
   team: [
     {
       name: 'Khaled AbuShqear',
+      photo: '/team/khaled-abushqear.png',
       role: 'DevOps Lead · AI Infrastructure & Platform Engineering',
       bio: '9+ years building cloud platforms, developer tooling, and production AI systems — from Kubernetes and Kafka to LLM infrastructure and internal developer platforms. Currently DevOps Lead at Careem, focused on AI infrastructure, platform engineering, and developer experience.',
       linkedin: 'https://www.linkedin.com/in/khaled-abushqear/',
@@ -425,6 +426,7 @@ export const about = {
     },
     {
       name: 'Haider Ali',
+      photo: '/team/haider-ali.png',
       role: 'Senior DevOps & SRE Engineer',
       bio: '5+ years across the full DevOps stack — Terraform, Kubernetes, CI/CD, and production incident response. Built a centralized IaC platform at Careem managing 2,000+ AWS resources, cutting provisioning time from days to under 30 minutes and reducing configuration drift by 80%.',
       linkedin: 'https://www.linkedin.com/in/haider-ali-iub/',
