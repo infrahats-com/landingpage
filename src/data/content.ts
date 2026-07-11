@@ -406,6 +406,42 @@ export const about = {
     { label: 'Engagement style', value: 'retainer or project' },
     { label: 'Support model', value: 'async + weekly sync' },
   ],
+  team: [
+    {
+      name: 'Khaled AbuShqear',
+      role: 'DevOps Lead · AI Infrastructure & Platform Engineering',
+      bio: '9+ years building cloud platforms, developer tooling, and production AI systems — from Kubernetes and Kafka to LLM infrastructure and internal developer platforms. Currently DevOps Lead at Careem, focused on AI infrastructure, platform engineering, and developer experience.',
+      linkedin: 'https://www.linkedin.com/in/khaled-abushqear/',
+      certifications: [],
+    },
+    {
+      name: 'Haider Ali',
+      role: 'Senior DevOps & SRE Engineer',
+      bio: '5+ years across the full DevOps stack — Terraform, Kubernetes, CI/CD, and production incident response. Built a centralized IaC platform at Careem managing 2,000+ AWS resources, cutting provisioning time from days to under 30 minutes and reducing configuration drift by 80%.',
+      linkedin: 'https://www.linkedin.com/in/haider-ali-iub/',
+      certifications: ['AWS Certified Solutions Architect – Associate', 'CKA: Certified Kubernetes Administrator'],
+    },
+  ],
+  // Placeholder testimonials — swap for real client quotes once collected
+  // (expected within a few days). Attributed by role only, no invented
+  // company names, so nothing here reads as impersonating a real business.
+  testimonials: [
+    {
+      quote:
+        'They came in, audited our setup, and had a real plan within a week. No jargon, no upsell — just the fixes we actually needed.',
+      attribution: 'VP Engineering, Series A fintech startup',
+    },
+    {
+      quote:
+        'Handed off our Kubernetes cluster expecting a rough transition. Instead, deployment times dropped and our on-call load nearly disappeared.',
+      attribution: 'Head of Platform, B2B SaaS company',
+    },
+    {
+      quote:
+        'Having a senior DevOps team on retainer instead of a full-time hire was the right call for where we are. Responsive, and everything ships through PRs we can actually review.',
+      attribution: 'CTO, early-stage startup',
+    },
+  ],
 };
 
 export const contact = {
