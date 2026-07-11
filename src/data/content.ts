@@ -412,14 +412,28 @@ export const about = {
       role: 'DevOps Lead · AI Infrastructure & Platform Engineering',
       bio: '9+ years building cloud platforms, developer tooling, and production AI systems — from Kubernetes and Kafka to LLM infrastructure and internal developer platforms. Currently DevOps Lead at Careem, focused on AI infrastructure, platform engineering, and developer experience.',
       linkedin: 'https://www.linkedin.com/in/khaled-abushqear/',
-      certifications: [],
+      certifications: [
+        {
+          name: 'AWS Certified Solutions Architect – Professional',
+          url: 'https://www.credly.com/earner/earned/badge/2727295b-1c28-4c77-9ee8-a7db02fbfcaa',
+        },
+        {
+          name: 'AWS Certified Solutions Architect – Associate',
+          url: 'https://www.credly.com/earner/earned/badge/15d1050b-2973-4356-bfba-a498cdc63361',
+        },
+      ],
     },
     {
       name: 'Haider Ali',
       role: 'Senior DevOps & SRE Engineer',
       bio: '5+ years across the full DevOps stack — Terraform, Kubernetes, CI/CD, and production incident response. Built a centralized IaC platform at Careem managing 2,000+ AWS resources, cutting provisioning time from days to under 30 minutes and reducing configuration drift by 80%.',
       linkedin: 'https://www.linkedin.com/in/haider-ali-iub/',
-      certifications: ['AWS Certified Solutions Architect – Associate', 'CKA: Certified Kubernetes Administrator'],
+      // No verified Credly/issuer URL for these two (not captured from his
+      // profile) — name only, unlike Khaled's which link to his real badges.
+      certifications: [
+        { name: 'AWS Certified Solutions Architect – Associate', url: null },
+        { name: 'CKA: Certified Kubernetes Administrator', url: null },
+      ],
     },
   ],
   // Placeholder testimonials — swap for real client quotes once collected

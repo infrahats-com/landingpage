@@ -69,7 +69,15 @@ const breadcrumbSchema = {
               <p class="team-bio">{person.bio}</p>
               {person.certifications.length > 0 && (
                 <ul class="team-certs">
-                  {person.certifications.map((cert) => <li>{cert}</li>)}
+                  {person.certifications.map((cert) => (
+                    <li>
+                      {cert.url ? (
+                        <a href={cert.url} target="_blank" rel="noopener">{cert.name} ↗</a>
+                      ) : (
+                        cert.name
+                      )}
+                    </li>
+                  ))}
                 </ul>
               )}
               <a class="team-linkedin" href={person.linkedin} target="_blank" rel="noopener">
@@ -233,6 +241,15 @@ const breadcrumbSchema = {
     gap: 0.35rem;
     color: var(--text-dim);
     font-size: 0.82rem;
+  }
+
+  .team-certs a {
+    color: var(--teal-bright);
+    font-weight: 600;
+  }
+
+  .team-certs a:hover {
+    color: var(--sage);
   }
 
   .team-linkedin {
